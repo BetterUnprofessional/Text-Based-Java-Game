@@ -1,0 +1,26 @@
+{
+    "STORE": {
+        "ITEM":[
+            {
+                "ID": 0,
+                "NAME": "Fish",
+                "ODDS": 0.5
+            },
+            {
+                "ID": 1,
+                "NAME": "Butter Knife",
+                "ODDS": 0.5
+            }
+
+
+        ]
+    }
+
+
+
+
+
+
+
+
+}
