@@ -182,9 +182,17 @@ public class player {
         if(monsterMiss = true){
             monsterMultiplyer = 0;
         }
-        health -= m.getStrength();
-        System.out.println("You do " + playerDamage + " to " + m.getName());
-        m.subtractHealth(playerDamage);
+        if(m.getSpeed() > agility){
+            health -= m.getStrength();
+            int dmg = m.subtractHealth(playerDamage);
+            System.out.println("You do " + dmg + " to " + m.getName());
+                
+        }
+        else{
+            int dmg = m.subtractHealth(playerDamage);
+            System.out.println("You do " + dmg + " to " + m.getName());
+            if(m.getHealth() > 0) {health -= m.getStrength();}
+        }
         
     }
 }

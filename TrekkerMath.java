@@ -9,4 +9,28 @@ public class TrekkerMath {
         return ret;
     }
 
+    public static boolean arrContains(String[] array, String string){
+        for(String e: array){
+            if(e.equals(string)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean arrContains(int[] array, int i){
+        for(int e: array){
+            if(e == i){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean arrContains(double[] array, double d){
+        for(double e: array){
+            if(e == d){
+                return true;
+            }
+        }
+        return false;
+    }
 }
