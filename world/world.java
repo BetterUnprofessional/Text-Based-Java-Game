@@ -1,5 +1,12 @@
+package world;
+
+
 //import java.lang.Math;
 import java.util.Scanner;
+
+import monsters.monster;
+import player.player;
+import util.response;
 
 public class world {
     private player pinfo;
@@ -151,6 +158,7 @@ public class world {
 
          */
     }
+
     private void monsterMenu(monster m){
         while(m.getHealth() > 0){
             System.out.println("Would you like to fight " + m.getName() + "?");
@@ -161,6 +169,7 @@ public class world {
 
                 
                 if(m.getHealth() <= 0){
+                    
                     System.out.println("You defeated " + m.getName() + "!");
                 }
                 else{

@@ -1,6 +1,12 @@
+package player;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import monsters.monster;
+import util.TrekkerMath;
+import util.response;
+import world.shopitems;
 
 public class player {
     public static ArrayList<Integer> playerItemIDs = new ArrayList<Integer>();
@@ -148,8 +154,8 @@ public class player {
 
     public void fightMonster(monster m){
         boolean monsterMiss;
-        boolean playerMiss;
-        double monsterMultiplyer;
+        boolean playerMiss = true;
+        double monsterMultiplyer = 1;
         double multiplyer;
         int playerDamage;
         
@@ -165,8 +171,8 @@ public class player {
 
         //Did the player Crit?
         if(monsterMiss == false && TrekkerMath.randomInt(100, agility * 3) > 40){
-            multiplyer = TrekkerMath.randomInt(3, 0);
-            if(multiplyer < 0){
+            multiplyer = TrekkerMath.randomDouble(3, 0);
+            if(multiplyer < 1){
                 playerMiss = true;
             }
             else{
@@ -183,13 +189,25 @@ public class player {
             monsterMultiplyer = 0;
         }
         if(m.getSpeed() > agility){
-            health -= m.getStrength();
+            health -= m.getStrength() * monsterMultiplyer;
             int dmg = m.subtractHealth(playerDamage);
+            
+            if(playerMiss == true){
+                System.out.println("You miss on your attack but...");
+            }
+            
+
+
             System.out.println("You do " + dmg + " to " + m.getName());
                 
         }
         else{
             int dmg = m.subtractHealth(playerDamage);
+
+            if(playerMiss == true){
+                System.out.println("You miss on your attack but...");
+            }
+            
             System.out.println("You do " + dmg + " to " + m.getName());
             if(m.getHealth() > 0) {health -= m.getStrength();}
         }

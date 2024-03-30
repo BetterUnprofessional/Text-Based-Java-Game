@@ -1,3 +1,9 @@
+    package monsters;
+
+import player.player;
+import util.TrekkerMath;
+import world.world;
+
 public class monster {
     
     private String mName;
@@ -14,6 +20,10 @@ public class monster {
     private static String[] areaMonsterArray = {"Goblin", "Slime", "Agressive Walrus", "Dinosaur", "Snake", "Skeleton", "Orc", "Troll", "Witch", "Zombie", "Demon", "Dragon", "Vampire", "Werewolf", "Chimera", "Banshee", "Kelpie", "Dullahan", "Chupacabra", "Wendigo", "Jersey Devil", "Kitsune", "Nuckelavee", "Basilisk", "Fomorian", "Boggart", "Manticore", "Selkie", "Naga", "Bunyip", "Hodag", "Leshy", "Jackalope", "Qilin"};
 
 
+    /*
+     * Object oriented attempt 1
+     */
+    
     public monster(world world , player player){
         this.world = world;
         this.player = player;

@@ -1,3 +1,4 @@
+package util;
 public class TrekkerMath {
     
     public static int randomInt(int toVal, int fromVal){
