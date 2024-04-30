@@ -5,6 +5,7 @@ package world;
 import java.util.Scanner;
 
 import monsters.monster;
+import monsters.monsterCreater;
 import player.player;
 import util.response;
 
@@ -18,7 +19,7 @@ public class world {
     private int stage = 0;
     private String areas[] = {"Village", "Grassland", "Cave"}; 
 
-
+    public static int ANum = 0;
 
 
 
@@ -125,6 +126,7 @@ public class world {
     private void openDungeon(){
         if(stage % 5 == 0 && AREANUM < areas.length - 1){
             AREANUM++;
+            ANum++;
         }
         System.out.println("You arrive in " + areas[AREANUM] + " on stage "  + stage);
 
@@ -134,7 +136,7 @@ public class world {
 
 
         //create monster
-        monster m = new monster(this, pinfo);
+        monster m = monsterCreater.createMonster();
         m.printMonster();
         monsterMenu(m);
         

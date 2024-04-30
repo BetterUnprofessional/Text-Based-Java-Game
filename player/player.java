@@ -17,7 +17,7 @@ public class player {
     public int agility;
     public int intelligence;
     public double luck = Math.random() * 4;
-    public int playerLevel;
+    public static int playerLevel;
     private int health;
 
     int totalMaxStartingSkills = 10;
@@ -190,6 +190,7 @@ public class player {
         }
         if(m.getSpeed() > agility){
             health -= m.getStrength() * monsterMultiplyer;
+            System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength());
             int dmg = m.subtractHealth(playerDamage);
             
             if(playerMiss == true){
@@ -209,7 +210,10 @@ public class player {
             }
             
             System.out.println("You do " + dmg + " to " + m.getName());
-            if(m.getHealth() > 0) {health -= m.getStrength();}
+            if(m.getHealth() > 0) {
+                health -= m.getStrength();
+                System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength());
+            }
         }
         
     }

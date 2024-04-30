@@ -1,10 +1,16 @@
-    package monsters;
+package monsters;
 
 import player.player;
 import util.TrekkerMath;
 import world.world;
+import java.util.ArrayList;
 
 public class monster {
+
+    //Subclasses for monster
+    
+    
+
     
     private String mName;
     private int mHealth;
@@ -15,18 +21,25 @@ public class monster {
     private world world;
     private player player;
 
+    /* 
     private static String[] fastMonsters = {"Goblin", "Snake", "Witch", "Vampire", "Banshee", "Kelpie", "Chupacabra", "Jersey Devil", "Kitsune", "Selkie", "Jackalope", "Qilin"};
     private static String[] armouredMonsters = {"Goblin", "Agressive Walrus", "Orc", "Troll", "Dragon", "Basilisk", "Boggart", "Naga", "Hodag"};
     private static String[] areaMonsterArray = {"Goblin", "Slime", "Agressive Walrus", "Dinosaur", "Snake", "Skeleton", "Orc", "Troll", "Witch", "Zombie", "Demon", "Dragon", "Vampire", "Werewolf", "Chimera", "Banshee", "Kelpie", "Dullahan", "Chupacabra", "Wendigo", "Jersey Devil", "Kitsune", "Nuckelavee", "Basilisk", "Fomorian", "Boggart", "Manticore", "Selkie", "Naga", "Bunyip", "Hodag", "Leshy", "Jackalope", "Qilin"};
-
+    */
 
     /*
      * Object oriented attempt 1
      */
+
     
+/*
     public monster(world world , player player){
         this.world = world;
         this.player = player;
+
+        //WHATS THE MONSTER TYPE
+        
+        
 
         //CREATE THE MONSTER
         int randomNum = (int)(Math.random() * areaMonsterArray.length);
@@ -51,9 +64,19 @@ public class monster {
         
         //Old Speed Calc
         //mSpeed = (int)((player.playerLevel / 4) * TrekkerMath.randomDouble(1.5, 0.25));
+
+
+*/
+    
+    public monster(){}
+    public void setName(String name){
+        mName = name;
     }
     public String getName(){
         return mName;
+    }
+    public void setOrigionalHealth(int hVal){
+        mHealth = hVal;
     }
     public int getHealth(){
         return mHealth;
@@ -70,6 +93,12 @@ public class monster {
             return x;
         }
     }
+    public void setArmour(int armour){
+        mArmour = armour;
+    }
+    public void setStrength(int strength){
+        mStrength = strength;
+    }
     public int getStrength(){
         return mStrength;
     }
@@ -82,6 +111,11 @@ public class monster {
     public int getArmour(){
         return mArmour;
     }
+    public String attackString(){
+        return "slashes you for";
+    }
+
+
     public void printMonster(){
         System.out.println(mName + " level " + mLevel + " has " + mHealth + " HP.");
     }

@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-
-import player.player;
+import monsters.*;
+import player.*;
 import util.response;
 import world.world;
 
@@ -10,8 +11,9 @@ public class runTime
     
     
     public static void main(String[] args) {
-
-
+        new monsterArrayList();
+        monster h = monsterCreater.createMonster();
+        System.out.println(h.getClass());
         
         Scanner userInput = new Scanner(System.in);
 
