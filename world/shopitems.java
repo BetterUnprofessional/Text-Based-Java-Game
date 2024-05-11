@@ -47,6 +47,7 @@ public class shopitems {
     public static void buyItem(int shopItemNum){
         int itemID = holdingArr[shopItemNum - 1];
         player.playerItemIDs.add(itemID); 
+        player.BankBalance -= itemPrice[itemID];
     }
     public static int[] getShopItemIDArray(){
         return holdingArr;

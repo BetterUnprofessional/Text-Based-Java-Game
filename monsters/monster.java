@@ -1,9 +1,5 @@
 package monsters;
 
-import player.player;
-import util.TrekkerMath;
-import world.world;
-import java.util.ArrayList;
 
 public class monster {
 
@@ -18,8 +14,6 @@ public class monster {
     private int mSpeed;
     private int mArmour;
     private int mLevel;
-    private world world;
-    private player player;
 
     /* 
     private static String[] fastMonsters = {"Goblin", "Snake", "Witch", "Vampire", "Banshee", "Kelpie", "Chupacabra", "Jersey Devil", "Kitsune", "Selkie", "Jackalope", "Qilin"};
@@ -104,6 +98,9 @@ public class monster {
     }
     public int getSpeed(){
         return mSpeed;
+    }
+    public void setSpeed(int speed){
+        mSpeed = speed;
     }
     public int getLevel(){
         return mLevel;

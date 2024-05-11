@@ -10,11 +10,11 @@ import player.*;
 
 public class monsterCreater {
     private world world;
-    private player player;
+    private player Player;
     
-    public monsterCreater(world world, player player){
+    public monsterCreater(world world, player Player){
         this.world = world;
-        this.player = player;
+        this.Player = Player;
     }
 
     public static monster createMonster(){
@@ -45,5 +45,17 @@ public class monsterCreater {
         
         //monster m = new ctor.newInstance(world, player);
     }
-    
+    public static int fastMonsterSpeed(){
+        if(player.getPlayerLevel() > 10){
+            return (int)(TrekkerMath.randomDouble(2, .9) * (player.getPlayerLevel() / 4));
+        }
+        return (int)(TrekkerMath.randomDouble(5, 1.1) * 1);
+    }
+
+    public static int slowMonsterSpeed(){
+        if(player.getPlayerLevel() > 10){
+            return (int)(TrekkerMath.randomDouble(1.2, .5) * (player.getPlayerLevel() / 4));
+        }
+        return (int)(TrekkerMath.randomDouble(3, 1.1) * 1);
+    }
 }

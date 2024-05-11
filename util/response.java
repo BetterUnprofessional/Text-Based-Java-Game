@@ -3,6 +3,7 @@ public class response{
 
     public boolean respondYes(String response){
 
+        response = response.toLowerCase();
         if (response.contains("Ye") || response.contains("Sure") || response.contains("ye") || response.contains("sure"))
         {
             return true;
@@ -14,6 +15,7 @@ public class response{
 
     }
     public boolean respondNo(String response){
+        response = response.toLowerCase();
 
         if (response.contains("No") || response.contains("Na") || response.contains("no") || response.contains("na"))
         {
@@ -25,28 +27,39 @@ public class response{
         }
     }
     public static boolean quit(String response){
-        if(response.equals("exit")  || response.equals("Exit") || response.equals("Leave") || response.equals("leave") || response.equals("quit") || response.equals("Quit")){
+        response = response.toLowerCase();
+        if(response.contains("exit")  || response.contains("Exit") || response.contains("Leave") || response.contains("leave") || response.contains("quit") || response.contains("Quit")){
             return true;
         }
         else return false;
     }
     public boolean Shop(String response){
-        if(response.equals("Shop")  || response.equals("shop")){
+        response = response.toLowerCase();
+        if(response.contains("Shop")  || response.contains("shop")){
             return true;
         }
         else return false;
     }
     public boolean Dungeon(String response){
-        if(response.equals("dungeon")  || response.equals("Dungeon")){
+        response = response.toLowerCase();
+        if(response.contains("dungeon")  || response.contains("Dungeon")){
             return true;
         }
         else return false;
     }
     public boolean Items(String response){
-        if(response.equals("items")  || response.equals("Items") || response.equals("Item") || response.equals("item")){
+        response = response.toLowerCase();
+        if(response.contains("items")  || response.contains("Items") || response.contains("Item") || response.contains("item")){
             return true;
         }
         else return false;
+    }
+    public boolean respondFight(String response){
+        response = response.toLowerCase();
+        if(response.contains("fight")  || response.contains("attack") || response.contains("brawl") || response.contains("kill")){
+            return true;
+        }
+        return false;
     }
 }
 

@@ -3,11 +3,9 @@ package world;
 
 //import java.lang.Math;
 import java.util.Scanner;
-
-import monsters.monster;
-import monsters.monsterCreater;
-import player.player;
-import util.response;
+import monsters.*;
+import player.*;
+import util.*;
 
 public class world {
     private player pinfo;
@@ -19,7 +17,7 @@ public class world {
     private int stage = 0;
     private String areas[] = {"Village", "Grassland", "Cave"}; 
 
-    public static int ANum = 0;
+    public static int stageNum = 0;
 
 
 
@@ -39,9 +37,10 @@ public class world {
 
     public void menu(){
         Scanner input = new Scanner(System.in);
-        System.out.println("You have some options of what to do: \n");
+        
 
-        if(AREANUM == 0){
+        if(stage % 5 == 0){
+            System.out.println("You have some options of what to do: \n");
             System.out.println("Shop \nDungeon \nItems \nQuit \n");
             String Ans = input.nextLine();
             if (response.quit(Ans)){System.exit(0);}
@@ -82,7 +81,7 @@ public class world {
 
                     //int numUserIsBuying = input.nextInt();
                     int[] shopitemsID= shopitems.getShopItemIDArray().clone();
-                    if(pinfo.BankBalance >= shopitems.itemPrice[shopitemsID[UserResp - 1]]){
+                    if(player.BankBalance >= shopitems.itemPrice[shopitemsID[UserResp - 1]]){
                         //int buyNum = input.nextInt();
                         shopitems.buyItem(UserResp);
                         System.out.println();
@@ -103,15 +102,16 @@ public class world {
                     System.out.println("What Item Would you like to buy?");
                     System.out.println("Number ___");
                     int numUserIsBuying = input.nextInt();
+                    input.nextLine();
                     int[] shopitemsID= shopitems.getShopItemIDArray().clone();
-                    if(pinfo.BankBalance >= shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]]){
+                    if(player.BankBalance >= shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]]){
                         //int buyNum = input.nextInt();
                         shopitems.buyItem(numUserIsBuying);
                         System.out.println();
                         System.out.println("You successfully bought " + shopitems.shopItems[shopitemsID[numUserIsBuying - 1]] + " for " + shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]] + " shmeckles.");
                     }
                     else{
-                        System.out.println("You dont have enough money to buy that! /n You only have " + pinfo.BankBalance + " shmeckles.");
+                        System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
                         menu();
                     }
                     
@@ -126,7 +126,6 @@ public class world {
     private void openDungeon(){
         if(stage % 5 == 0 && AREANUM < areas.length - 1){
             AREANUM++;
-            ANum++;
         }
         System.out.println("You arrive in " + areas[AREANUM] + " on stage "  + stage);
 
@@ -163,19 +162,38 @@ public class world {
 
     private void monsterMenu(monster m){
         while(m.getHealth() > 0){
-            System.out.println("Would you like to fight " + m.getName() + "?");
             System.out.println();
+            System.out.println("What would you like to do?");
             String h = input.nextLine(); 
-            if(resp.respondYes(h)){
+            if(response.quit(h)){System.exit(0);}
+            if(resp.respondFight(h)){
                     pinfo.fightMonster(m);
 
                 
                 if(m.getHealth() <= 0){
                     
                     System.out.println("You defeated " + m.getName() + "!");
+                    int coinGain = (int)((pinfo.luck * stageNum) + 4);
+                    System.out.println("You obtained " + coinGain + " shmeckles!");
+                    player.BankBalance += coinGain;
+                    stage++;
+                    stageNum++;
                 }
                 else{
                     m.printMonster();
+                }
+            }
+            else if(resp.Items(h)){
+                pinfo.printPlayerItems();
+                System.out.println("Would you like to use an item?");
+                h = input.nextLine();
+                if(resp.respondNo(h)){}
+                else if(resp.respondYes(h)){
+                    System.out.println("What is the number of the item you would like to use");
+                    int temp = input.nextInt();
+                    input.nextLine();
+                    int itemId = player.playerItemIDs.remove(temp-1);
+                    pinfo.useItem(itemId);
                 }
             }
         

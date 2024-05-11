@@ -11,13 +11,14 @@ import world.shopitems;
 public class player {
     public static ArrayList<Integer> playerItemIDs = new ArrayList<Integer>();
     public String name;
-    public int BankBalance = 100;
+    public static int BankBalance = 100;
     public String race;
     public int strength;
     public int agility;
     public int intelligence;
     public double luck = Math.random() * 4;
     public static int playerLevel;
+    private int maxHealth;
     private int health;
 
     int totalMaxStartingSkills = 10;
@@ -38,7 +39,8 @@ public class player {
     }
     public void allocateSkillPoints(){
         strength = (int)(Math.random() * totalMaxStartingSkills);
-        health = (int)((double)(strength + 1) * luck * 2.0);
+        maxHealth = (int)((double)(strength + 1) * luck * 2.0);
+        health = maxHealth;
         intelligence = (int)(Math.random() * (totalMaxStartingSkills - strength));
         agility = (totalMaxStartingSkills - (strength + agility));
 
@@ -50,6 +52,17 @@ public class player {
     }
 
 
+    //Health Getter
+    public int getMaxHealth(){
+        return maxHealth;
+    }
+    public int getHealth(){
+        return health;
+    }
+    //Bank Balance
+    public int getBankBalance(){
+        return BankBalance;
+    }
     //Long ass function for asking and allocating skill points
     public void playerPointAllocation(){
         Scanner userInput = new Scanner(System.in);
@@ -131,6 +144,11 @@ public class player {
  
     }
 
+    public static int getPlayerLevel(){
+        return playerLevel;
+    }
+
+
     //adding items to inventory through adding item id
     public boolean addItemToPlayer(int itemID){
         
@@ -194,7 +212,12 @@ public class player {
             int dmg = m.subtractHealth(playerDamage);
             
             if(playerMiss == true){
-                System.out.println("You miss on your attack but...");
+                if(dmg != 0){
+                    System.out.println("You miss on your attack but...");
+                }
+                if(dmg == 0){
+                    System.out.println("You completely miss on your attack hitting nothing but air.");
+                }
             }
             
 
@@ -206,7 +229,12 @@ public class player {
             int dmg = m.subtractHealth(playerDamage);
 
             if(playerMiss == true){
-                System.out.println("You miss on your attack but...");
+                if(dmg != 0){
+                    System.out.println("You miss on your attack but...");
+                }
+                if(dmg == 0){
+                    System.out.println("You completely miss on your attack hitting nothing but air.");
+                }
             }
             
             System.out.println("You do " + dmg + " to " + m.getName());
@@ -215,6 +243,18 @@ public class player {
                 System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength());
             }
         }
+        if(m.getHealth() != 0)
+            {System.out.println(m.getName() + " has " + m.getHealth() + " health left");}
+        System.out.println("You have " + health + " left");
+        System.out.println();
         
+    }
+    public void useItem(int itemNum){
+        if(itemNum == 0){
+            int healthgain = maxHealth / 5;
+            System.out.println("You consume a fish and gain " + healthgain + " health");
+            health+= healthgain;
+            System.out.println("You now have " + health + " health.");
+        }
     }
 }

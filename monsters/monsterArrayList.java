@@ -13,6 +13,9 @@ public class monsterArrayList {
         monsterSubclasses.add(skeleton.class);
         monsterSubclasses.add(slime.class);
         monsterSubclasses.add(witch.class);
+        monsterSubclasses.add(goblin.class);
+        monsterSubclasses.add(snake.class);
+        monsterSubclasses.add(troll.class);
     }
     
     public static Class<? extends monster> getMonsterType(){
