@@ -20,6 +20,9 @@ public class player {
     public static int playerLevel;
     private int maxHealth;
     private int health;
+    private int xpToLevelUp = 100;
+    private int xp;
+
 
     int totalMaxStartingSkills = 10;
 
@@ -29,6 +32,7 @@ public class player {
         name = pName;
         race = pRace;
         playerLevel = 0;
+        xp = 0;
     }
 
     //Allocating Skill Points
@@ -39,7 +43,7 @@ public class player {
     }
     public void allocateSkillPoints(){
         strength = (int)(Math.random() * totalMaxStartingSkills);
-        maxHealth = (int)((double)(strength + 1) * luck * 2.0);
+        maxHealth = (int)((double)(strength + 1) * luck * 2.0) +1;
         health = maxHealth;
         intelligence = (int)(Math.random() * (totalMaxStartingSkills - strength));
         agility = (totalMaxStartingSkills - (strength + agility));
@@ -48,7 +52,7 @@ public class player {
     
     //Print your stats
     public void printStats(){
-        System.out.println("Strength: " + strength + "\nAgility: " + agility + "\nIntelligence: " + intelligence);
+        System.out.println("Health: "+ health +"/"+maxHealth + "\nStrength: " + strength + "\nAgility: " + agility + "\nIntelligence: " + intelligence);
     }
 
 
@@ -147,7 +151,15 @@ public class player {
     public static int getPlayerLevel(){
         return playerLevel;
     }
-
+    public void gainXP(int exp){
+        xp += exp;
+        if(xp > xpToLevelUp){
+            playerLevel++;
+            levelPrompt();
+            xp -= xpToLevelUp;
+            xpToLevelUp *= 1.375;
+        }
+    }
 
     //adding items to inventory through adding item id
     public boolean addItemToPlayer(int itemID){
@@ -250,11 +262,61 @@ public class player {
         
     }
     public void useItem(int itemNum){
+        //Fish
         if(itemNum == 0){
-            int healthgain = maxHealth / 5;
+            int healthgain;
+            if(maxHealth/5 + health < maxHealth){
+                healthgain = maxHealth / 5;
+            }
+            else{
+                healthgain = maxHealth - health;
+            }
             System.out.println("You consume a fish and gain " + healthgain + " health");
             health+= healthgain;
             System.out.println("You now have " + health + " health.");
+            
         }
+        if(itemNum == 6){
+            int healthgain;
+            if(maxHealth/5 + health < maxHealth){
+                healthgain = maxHealth / 2;
+            }
+            else{
+                healthgain = maxHealth - health;
+            }
+            System.out.println("You consume a fish and gain " + healthgain + " health");
+            health+= healthgain;
+            System.out.println("You now have " + health + " health.");
+            
+        }
+    }
+    private void levelPrompt(){
+        System.out.println("Which stat would you like to level up?");
+        System.out.println("Your options are, strength, agility, intelligence, or health");
+        Scanner input = new Scanner(System.in);
+        String temp = input.nextLine();
+        try {
+            int num = Integer.parseInt(temp) - 1;
+            if(num == 1){temp = "strength";}
+            if(num == 2){temp = "agility";}
+            if(num == 3){temp = "intelligence";}
+            if(num == 4){temp = "health";}
+        } catch (NumberFormatException ex) {}
+        if(temp.equals("strength")){
+            strength += 1;
+        }
+        if(temp.equals("agility")){
+            agility += 1;
+        }
+        if(temp.equals("intelligence")){
+            intelligence += 1;
+        }
+        if(temp.equals("health")){
+            maxHealth += 10;
+            health += (int)(((double)health/maxHealth)*10);
+        }
+        System.out.println("You level up " + temp);
+        System.out.println("Your stats are now ");
+        printStats();
     }
 }

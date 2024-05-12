@@ -15,7 +15,7 @@ public class world {
     Scanner input = new Scanner(System.in);
     private int AREANUM = 0;
     private int stage = 0;
-    private String areas[] = {"Village", "Grassland", "Cave"}; 
+    private String areas[] = {"Village", "Grassland", "Cave", "Hell", "A second Cave?", "A THIRD CAVE??", "Why is there two hells?", "Are you actually still playing???", "Bored Yet?", "How bout now?"}; 
 
     public static int stageNum = 0;
 
@@ -72,55 +72,54 @@ public class world {
 
     }
     private void openShop(){
-        shopitems.printShop(pinfo);
-                System.out.println("Would you like to purchase one of these items?");
-                String userInput = input.nextLine();
+        shopitems.printShop();
+        System.out.println("Would you like to purchase one of these items?");
+        String userInput = input.nextLine();
                 
-                try{
-                    int UserResp = Integer.parseInt(userInput);
+        try{
+            int UserResp = Integer.parseInt(userInput);
 
-                    //int numUserIsBuying = input.nextInt();
-                    int[] shopitemsID= shopitems.getShopItemIDArray().clone();
-                    if(player.BankBalance >= shopitems.itemPrice[shopitemsID[UserResp - 1]]){
-                        //int buyNum = input.nextInt();
-                        shopitems.buyItem(UserResp);
-                        System.out.println();
-                        System.out.println("You successfully bought " + shopitems.shopItems[shopitemsID[UserResp - 1]] + " for " + shopitems.itemPrice[shopitemsID[UserResp - 1]] + " shmeckles.");
-                    }
-                    else{
-                        System.out.println("You dont have enough money to buy that! /n You only have " + pinfo.BankBalance + " shmeckles.");
-                        menu();
-                    }
+            //int numUserIsBuying = input.nextInt();
+             int[] shopitemsID= shopitems.getShopItemIDArray().clone();
+            if(player.BankBalance >= shopitems.itemPrice[shopitemsID[UserResp - 1]]){
+                //int buyNum = input.nextInt();
+                shopitems.buyItem(UserResp);
+                System.out.println();
+                System.out.println("You successfully bought " + shopitems.shopItems[shopitemsID[UserResp - 1]] + " for " + shopitems.itemPrice[shopitemsID[UserResp - 1]] + " shmeckles.");
+            }
+            else{
+                 System.out.println("You dont have enough money to buy that! /n You only have " + pinfo.BankBalance + " shmeckles.");
+                menu();
+            }
 
-                }
-                catch(NumberFormatException ex){
-                        //do nothing ig
-                }
+        }
+        catch(NumberFormatException ex){
+                    //do nothing ig
+        }
 
-                //yes buy shit
-                if(resp.respondYes(userInput)){
-                    System.out.println("What Item Would you like to buy?");
-                    System.out.println("Number ___");
-                    int numUserIsBuying = input.nextInt();
-                    input.nextLine();
-                    int[] shopitemsID= shopitems.getShopItemIDArray().clone();
-                    if(player.BankBalance >= shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]]){
-                        //int buyNum = input.nextInt();
-                        shopitems.buyItem(numUserIsBuying);
-                        System.out.println();
-                        System.out.println("You successfully bought " + shopitems.shopItems[shopitemsID[numUserIsBuying - 1]] + " for " + shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]] + " shmeckles.");
-                    }
-                    else{
-                        System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
-                        menu();
-                    }
+        //yes buy shit
+        if(resp.respondYes(userInput)){
+            System.out.println("What Item Would you like to buy?");
+            System.out.println("Number ___");
+            int numUserIsBuying = input.nextInt();
+            input.nextLine();
+            int[] shopitemsID= shopitems.getShopItemIDArray().clone();
+            if(player.BankBalance >= shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]]){
+                //int buyNum = input.nextInt();
+                shopitems.buyItem(numUserIsBuying);
+                System.out.println();
+                System.out.println("You successfully bought " + shopitems.shopItems[shopitemsID[numUserIsBuying - 1]] + " for " + shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]] + " shmeckles.");
+            }
+            else{
+                System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
+                menu();
+            }
                     
-                }
-                //no dont buy shit recurse back to display menu()
-                if(resp.respondNo(userInput)){
-                    menu();
-                }
-
+        }
+            //no dont buy shit recurse back to display menu()
+            if(resp.respondNo(userInput)){
+                menu();
+            }
     }
 
     private void openDungeon(){
@@ -174,8 +173,10 @@ public class world {
                     
                     System.out.println("You defeated " + m.getName() + "!");
                     int coinGain = (int)((pinfo.luck * stageNum) + 4);
-                    System.out.println("You obtained " + coinGain + " shmeckles!");
+                    int xpGain = (int)((pinfo.luck * (stageNum+1))*20);
+                    System.out.println("You obtained " + coinGain + " shmeckles and " + xpGain + " XP!");
                     player.BankBalance += coinGain;
+                    pinfo.gainXP(xpGain);
                     stage++;
                     stageNum++;
                 }
@@ -183,12 +184,26 @@ public class world {
                     m.printMonster();
                 }
             }
+            //////////////////////////////////////////
+            //Use an item during a fight
+            /////////////////////////////////////////
             else if(resp.Items(h)){
                 pinfo.printPlayerItems();
                 System.out.println("Would you like to use an item?");
                 h = input.nextLine();
-                if(resp.respondNo(h)){}
-                else if(resp.respondYes(h)){
+
+                try{
+                    int number = Integer.parseInt(h);
+                    int itemId = player.playerItemIDs.remove(number-1);
+                    pinfo.useItem(itemId);
+
+
+                }
+                catch(NumberFormatException ex){
+                    //do nothing
+                }
+
+                if(resp.respondYes(h)){
                     System.out.println("What is the number of the item you would like to use");
                     int temp = input.nextInt();
                     input.nextLine();

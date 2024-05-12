@@ -5,8 +5,8 @@ public class shopitems {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // precondition: all shops are 4 items
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public static String[] shopItems = {"Fish", "Butter Knife", "Generic Sword", "Ivory Tusk", "Backpack", "Eyes in a Jar"};
-    public static int[] itemPrice = {5, 1, 25, 30, 10, 3};
+    public static String[] shopItems = {"Fish", "Butter Knife", "Generic Sword", "Ivory Tusk", "Backpack", "Eyes in a Jar", "3 Course Meal"};
+    public static int[] itemPrice = {5, 1, 25, 30, 10, 3, 30};
     
     private static int[] holdingArr = new int[4];
 
@@ -37,7 +37,7 @@ public class shopitems {
         return itemPrice[IDNum];
     }
 
-    public static void printShop(player player){
+    public static void printShop(){
         System.out.println("You have " + player.BankBalance + " shmeckles!");
 
         System.out.println("Heres whats in the shop!");

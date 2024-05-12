@@ -9,12 +9,8 @@ import java.lang.reflect.*;
 import player.*;
 
 public class monsterCreater {
-    private world world;
-    private player Player;
     
     public monsterCreater(world world, player Player){
-        this.world = world;
-        this.Player = Player;
     }
 
     public static monster createMonster(){
