@@ -63,6 +63,18 @@ public class world {
             }
             if(resp.Items(Ans)){
                 pinfo.printPlayerItems();
+                System.out.println("Would you like to use an item?");
+                String userInput = input.nextLine();
+                if(resp.respondNo(userInput)){}
+                else if(resp.respondYes(userInput)){
+                    System.out.println("Which item would you like to use?");
+                    int temp = input.nextInt();
+                    player.inventory.get(temp - 1).Use();
+                    
+
+
+                }
+                
             }
             //input.close();
         }
@@ -83,7 +95,7 @@ public class world {
             //int numUserIsBuying = input.nextInt();
             item[] shop = shopitems.getShopArray();
             
-            if(player.BankBalance >= shopitems.getShopArray()[UserResp].getPrice()){
+            if(player.BankBalance >= shopitems.getShopArray()[UserResp-1].getPrice()){
                 //int buyNum = input.nextInt();
                 shopitems.buyItem(UserResp);
                 System.out.println();

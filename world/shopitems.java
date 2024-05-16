@@ -104,7 +104,14 @@ public class shopitems {
 
         item toAdd = itemsInShop[shopItemNum - 1];
     
-        player.inventory.add(toAdd); 
+        player.inventory.add(toAdd);
+        if(toAdd.isConsumable()){
+            player.consumableInv.add(toAdd);
+        }
+        else{
+            player.equipableItems.add(toAdd);
+        }
+        System.out.println(toAdd.getClass()); 
 
         
 

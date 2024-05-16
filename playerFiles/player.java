@@ -13,10 +13,10 @@ public class player {
     //Overall inventory
     public static ArrayList<item> inventory = new ArrayList<item>();
     //Consumables
-    public static ArrayList<consumables> consumableInv = new ArrayList<consumables>();
+    public static ArrayList<item> consumableInv = new ArrayList<item>();
     //equipped and unequipped inventory
-    public static ArrayList<equipables> equipableItems = new ArrayList<equipables>(); 
-    public static ArrayList<equipables> equipedItems = new ArrayList<equipables>();
+    public static ArrayList<item> equipableItems = new ArrayList<item>(); 
+    public static ArrayList<item> equipedItems = new ArrayList<item>();
 
     public String name;
     public static int BankBalance = 100;
@@ -26,8 +26,8 @@ public class player {
     public static int intelligence;
     public double luck = Math.random() * 4;
     public static int playerLevel;
-    private int maxHealth;
-    private int health;
+    private static int maxHealth;
+    private static int health;
     private int xpToLevelUp = 100;
     private int xp;
 
@@ -65,11 +65,16 @@ public class player {
 
 
     //Health Getter
-    public int getMaxHealth(){
+    public static int getMaxHealth(){
         return maxHealth;
     }
-    public int getHealth(){
+    public static int getHealth(){
         return health;
+    }
+    public static void addHealth(int x){
+        if(health + x < maxHealth)
+            {health += x;}
+        else{health = maxHealth;}
     }
     //Strength Getter
     public static int getStrength(){
@@ -78,7 +83,7 @@ public class player {
     public static void setStrength(int x){
         strength = x;
     }
-
+    
 
     //Bank Balance
     public int getBankBalance(){
