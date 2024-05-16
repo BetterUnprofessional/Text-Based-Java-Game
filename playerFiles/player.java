@@ -1,21 +1,29 @@
-package player;
+package playerFiles;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import monsters.monster;
-import util.TrekkerMath;
-import util.response;
+import items.*;
+import monsters.*;
+import util.*;
 import world.shopitems;
 
 public class player {
     public static ArrayList<Integer> playerItemIDs = new ArrayList<Integer>();
+    //Overall inventory
+    public static ArrayList<item> inventory = new ArrayList<item>();
+    //Consumables
+    public static ArrayList<consumables> consumableInv = new ArrayList<consumables>();
+    //equipped and unequipped inventory
+    public static ArrayList<equipables> equipableItems = new ArrayList<equipables>(); 
+    public static ArrayList<equipables> equipedItems = new ArrayList<equipables>();
+
     public String name;
     public static int BankBalance = 100;
-    public String race;
-    public int strength;
-    public int agility;
-    public int intelligence;
+    private String race;
+    public static int strength;
+    public static int agility;
+    public static int intelligence;
     public double luck = Math.random() * 4;
     public static int playerLevel;
     private int maxHealth;
@@ -63,6 +71,15 @@ public class player {
     public int getHealth(){
         return health;
     }
+    //Strength Getter
+    public static int getStrength(){
+        return strength;
+    }
+    public static void setStrength(int x){
+        strength = x;
+    }
+
+
     //Bank Balance
     public int getBankBalance(){
         return BankBalance;
@@ -174,8 +191,8 @@ public class player {
 
     public void printPlayerItems(){
         int printingNum = 1;
-        for(int e : playerItemIDs){
-            System.out.println(printingNum + ": " + shopitems.shopItems[e]);
+        for(item e : inventory){
+            System.out.println(printingNum + ": " + e);
             printingNum++;
         }
         

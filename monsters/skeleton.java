@@ -1,6 +1,6 @@
 package monsters;
 import world.world;
-import player.player;
+import playerFiles.player;
 import util.TrekkerMath;
 
 public  class skeleton extends monster {

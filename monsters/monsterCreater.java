@@ -5,8 +5,7 @@ import world.*;
 
 import java.lang.reflect.*;
 
-
-import player.*;
+import playerFiles.*;
 
 public class monsterCreater {
     

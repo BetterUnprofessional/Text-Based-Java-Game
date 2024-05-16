@@ -4,8 +4,9 @@ package world;
 //import java.lang.Math;
 import java.util.Scanner;
 import monsters.*;
-import player.*;
+import playerFiles.*;
 import util.*;
+import items.*;
 
 public class world {
     private player pinfo;
@@ -80,15 +81,16 @@ public class world {
             int UserResp = Integer.parseInt(userInput);
 
             //int numUserIsBuying = input.nextInt();
-             int[] shopitemsID= shopitems.getShopItemIDArray().clone();
-            if(player.BankBalance >= shopitems.itemPrice[shopitemsID[UserResp - 1]]){
+            item[] shop = shopitems.getShopArray();
+            
+            if(player.BankBalance >= shopitems.getShopArray()[UserResp].getPrice()){
                 //int buyNum = input.nextInt();
                 shopitems.buyItem(UserResp);
                 System.out.println();
-                System.out.println("You successfully bought " + shopitems.shopItems[shopitemsID[UserResp - 1]] + " for " + shopitems.itemPrice[shopitemsID[UserResp - 1]] + " shmeckles.");
+                System.out.println("You successfully bought " + shop[UserResp - 1] + " for " + shop[UserResp - 1].getPrice() + " shmeckles.");
             }
             else{
-                 System.out.println("You dont have enough money to buy that! /n You only have " + pinfo.BankBalance + " shmeckles.");
+                 System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
                 menu();
             }
 
@@ -99,16 +101,17 @@ public class world {
 
         //yes buy shit
         if(resp.respondYes(userInput)){
+            item[] shop = shopitems.getShopArray();
             System.out.println("What Item Would you like to buy?");
             System.out.println("Number ___");
             int numUserIsBuying = input.nextInt();
             input.nextLine();
-            int[] shopitemsID= shopitems.getShopItemIDArray().clone();
-            if(player.BankBalance >= shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]]){
+
+            if(player.BankBalance >= shop[numUserIsBuying - 1].getPrice()){
                 //int buyNum = input.nextInt();
                 shopitems.buyItem(numUserIsBuying);
                 System.out.println();
-                System.out.println("You successfully bought " + shopitems.shopItems[shopitemsID[numUserIsBuying - 1]] + " for " + shopitems.itemPrice[shopitemsID[numUserIsBuying - 1]] + " shmeckles.");
+                System.out.println("You successfully bought " + shop[numUserIsBuying - 1] + " for " + shop[numUserIsBuying - 1].getPrice() + " shmeckles.");
             }
             else{
                 System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
