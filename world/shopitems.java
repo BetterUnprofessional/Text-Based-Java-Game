@@ -22,6 +22,9 @@ public class shopitems {
     public shopitems(){
         consumableShopItems.add(fish.class);
         equipableShopItems.add(sword.class);
+        equipableShopItems.add(dagger.class);
+        equipableShopItems.add(chestplate.class);
+        consumableShopItems.add(threeCourseMeal.class);
     }
 
     public static void printShopItems(){

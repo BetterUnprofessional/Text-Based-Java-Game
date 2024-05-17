@@ -6,7 +6,6 @@ import java.util.Scanner;
 import items.*;
 import monsters.*;
 import util.*;
-import world.shopitems;
 
 public class player {
     public static ArrayList<Integer> playerItemIDs = new ArrayList<Integer>();
@@ -24,6 +23,7 @@ public class player {
     public static int strength;
     public static int agility;
     public static int intelligence;
+    public static int armour = 0;
     public double luck = Math.random() * 4;
     public static int playerLevel;
     private static int maxHealth;
@@ -83,8 +83,14 @@ public class player {
     public static void setStrength(int x){
         strength = x;
     }
-    
-
+    //Armour increase
+    public static void addArmour(int x){
+        armour += x;
+    }
+    //Agility increase
+    public static void addAgility(int x){
+        agility += x;
+    }
     //Bank Balance
     public int getBankBalance(){
         return BankBalance;
@@ -213,17 +219,20 @@ public class player {
         
 
         //Did the monster Miss
-        if(TrekkerMath.randomInt(100, agility * 5) > 50){
+        if(TrekkerMath.randomInt(100, agility * 5) > 90){
             monsterMiss = false;
         }
         else{
             monsterMiss = true;
             multiplyer = 0;
         }
+        
+        //did the player miss
 
-        //Did the player Crit?
-        if(monsterMiss == false && TrekkerMath.randomInt(100, agility * 3) > 40){
-            multiplyer = TrekkerMath.randomDouble(3, 0);
+
+        //Did the player Crit? or Did the player Miss?
+        if(monsterMiss == false && TrekkerMath.randomInt(100, intelligence * 3) > 40){
+            multiplyer = TrekkerMath.randomDouble(2, 0);
             if(multiplyer < 1){
                 playerMiss = true;
             }
@@ -239,15 +248,18 @@ public class player {
 
         if(monsterMiss = true){
             monsterMultiplyer = 0;
+            System.out.println("The monster missed and you take 0 damage!");
         }
         if(m.getSpeed() > agility){
             health -= m.getStrength() * monsterMultiplyer;
-            System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength());
+            if(!monsterMiss){
+                System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength()*monsterMultiplyer);
+            }
             int dmg = m.subtractHealth(playerDamage);
             
             if(playerMiss == true){
                 if(dmg != 0){
-                    System.out.println("You miss on your attack but...");
+                    System.out.println("You swing and only graze the monster.");
                 }
                 if(dmg == 0){
                     System.out.println("You completely miss on your attack hitting nothing but air.");
@@ -264,7 +276,7 @@ public class player {
 
             if(playerMiss == true){
                 if(dmg != 0){
-                    System.out.println("You miss on your attack but...");
+                    System.out.println("You swing and only graze the monster.");
                 }
                 if(dmg == 0){
                     System.out.println("You completely miss on your attack hitting nothing but air.");
@@ -273,8 +285,11 @@ public class player {
             
             System.out.println("You do " + dmg + " to " + m.getName());
             if(m.getHealth() > 0) {
-                health -= m.getStrength();
-                System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength());
+                if(!monsterMiss){
+                    health -= m.getStrength() * monsterMultiplyer;
+                    System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength()*monsterMultiplyer);
+                }
+                
             }
         }
         if(m.getHealth() != 0)
@@ -283,35 +298,7 @@ public class player {
         System.out.println();
         
     }
-    public void useItem(int itemNum){
-        //Fish
-        if(itemNum == 0){
-            int healthgain;
-            if(maxHealth/5 + health < maxHealth){
-                healthgain = maxHealth / 5;
-            }
-            else{
-                healthgain = maxHealth - health;
-            }
-            System.out.println("You consume a fish and gain " + healthgain + " health");
-            health+= healthgain;
-            System.out.println("You now have " + health + " health.");
-            
-        }
-        if(itemNum == 6){
-            int healthgain;
-            if(maxHealth/5 + health < maxHealth){
-                healthgain = maxHealth / 2;
-            }
-            else{
-                healthgain = maxHealth - health;
-            }
-            System.out.println("You consume a fish and gain " + healthgain + " health");
-            health+= healthgain;
-            System.out.println("You now have " + health + " health.");
-            
-        }
-    }
+
     private void levelPrompt(){
         System.out.println("Which stat would you like to level up?");
         System.out.println("Your options are, strength, agility, intelligence, or health");

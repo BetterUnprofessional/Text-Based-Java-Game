@@ -209,8 +209,7 @@ public class world {
 
                 try{
                     int number = Integer.parseInt(h);
-                    int itemId = player.playerItemIDs.remove(number-1);
-                    pinfo.useItem(itemId);
+                    player.inventory.get(number-1).Use();
 
 
                 }
@@ -222,8 +221,7 @@ public class world {
                     System.out.println("What is the number of the item you would like to use");
                     int temp = input.nextInt();
                     input.nextLine();
-                    int itemId = player.playerItemIDs.remove(temp-1);
-                    pinfo.useItem(itemId);
+                    player.inventory.get(temp-1).Use();
                 }
             }
         
