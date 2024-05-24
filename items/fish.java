@@ -5,6 +5,9 @@ public class fish extends consumables {
     public fish(){
         setPrice(5);
         setName("Fish");
+        if(player.getName().equals("Jesus")){
+            setName("Bread (Used to be fish)");
+        }
     }
     public void Use(){
         removeFromInv();

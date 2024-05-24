@@ -1,5 +1,6 @@
 package monsters;
-
+import playerFiles.player;
+import world.world;
 
 public class monster {
 
@@ -71,6 +72,7 @@ public class monster {
     }
     public void setOrigionalHealth(int hVal){
         mHealth = hVal;
+        mLevel = (int)((mHealth / 5) + mStrength + mSpeed);
     }
     public int getHealth(){
         return mHealth;
@@ -115,6 +117,14 @@ public class monster {
 
     public void printMonster(){
         System.out.println(mName + " level " + mLevel + " has " + mHealth + " HP.");
+        if(player.getName().equals("debug")){
+            System.out.println(mName);
+            System.out.println("Stren" + mStrength);
+            System.out.println("Speed"+ mSpeed);
+            System.out.println("Armour"+ mArmour);
+            System.out.println("Health"+ mHealth);
+            System.out.println("Level"+ mLevel);
+        }
     }
 
 }

@@ -17,7 +17,7 @@ public class player {
     public static ArrayList<item> equipableItems = new ArrayList<item>(); 
     public static ArrayList<item> equipedItems = new ArrayList<item>();
 
-    public String name;
+    public static String name;
     public static int BankBalance = 100;
     private String race;
     public static int strength;
@@ -39,7 +39,7 @@ public class player {
     public player(String pName, String pRace){
         name = pName;
         race = pRace;
-        playerLevel = 0;
+        playerLevel = 10;
         xp = 0;
     }
 
@@ -94,6 +94,9 @@ public class player {
     //Bank Balance
     public int getBankBalance(){
         return BankBalance;
+    }
+    public static String getName(){
+        return name;
     }
     //Long ass function for asking and allocating skill points
     public void playerPointAllocation(){
@@ -190,6 +193,7 @@ public class player {
     }
 
     //adding items to inventory through adding item id
+    /* 
     public boolean addItemToPlayer(int itemID){
         
         if(!playerItemIDs.contains(itemID)){
@@ -199,7 +203,7 @@ public class player {
         return false;
     }
 
-
+    */
     public void printPlayerItems(){
         int printingNum = 1;
         for(item e : inventory){
@@ -209,90 +213,46 @@ public class player {
         
 
     }
+    ///////////////////////////////////////////////////
+    // Fighting things
+    ///////////////////////////////////////////////////
+    public String getPlayerAttackString(){
+        for (item item : equipedItems) {
+            if(item.attackingItem()){
+                if(!item.getAttackString().equals(""))
+                return item.getAttackString();
+            }
+        }
+        return "slap";
+    }
 
     public void fightMonster(monster m){
-        boolean monsterMiss;
-        boolean playerMiss = true;
-        double monsterMultiplyer = 1;
-        double multiplyer;
-        int playerDamage;
+        
         
 
-        //Did the monster Miss
-        if(TrekkerMath.randomInt(100, agility * 5) > 90){
-            monsterMiss = false;
-        }
-        else{
-            monsterMiss = true;
-            multiplyer = 0;
-        }
         
         //did the player miss
 
 
         //Did the player Crit? or Did the player Miss?
-        if(monsterMiss == false && TrekkerMath.randomInt(100, intelligence * 3) > 40){
-            multiplyer = TrekkerMath.randomDouble(2, 0);
-            if(multiplyer < 1){
-                playerMiss = true;
-            }
-            else{
-                playerMiss = false;
-            }
-        }
-        else {
-            multiplyer = 1;
-        }
+        
 
-        playerDamage = (int)(multiplyer * (double)strength) + 1;
-
-        if(monsterMiss = true){
-            monsterMultiplyer = 0;
-            System.out.println("The monster missed and you take 0 damage!");
-        }
         if(m.getSpeed() > agility){
-            health -= m.getStrength() * monsterMultiplyer;
-            if(!monsterMiss){
-                System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength()*monsterMultiplyer);
-            }
-            int dmg = m.subtractHealth(playerDamage);
-            
-            if(playerMiss == true){
-                if(dmg != 0){
-                    System.out.println("You swing and only graze the monster.");
-                }
-                if(dmg == 0){
-                    System.out.println("You completely miss on your attack hitting nothing but air.");
-                }
-            }
-            
-
-
-            System.out.println("You do " + dmg + " to " + m.getName());
+            int damageDoneToMonster = damageDone(m);
+            health -= damageTaken(m);
+            m.subtractHealth(damageDoneToMonster);
+            System.out.println("You " + getPlayerAttackString()+ " " + m.getName() + " for "+ damageDoneToMonster);
                 
         }
         else{
-            int dmg = m.subtractHealth(playerDamage);
-
-            if(playerMiss == true){
-                if(dmg != 0){
-                    System.out.println("You swing and only graze the monster.");
-                }
-                if(dmg == 0){
-                    System.out.println("You completely miss on your attack hitting nothing but air.");
-                }
-            }
-            
-            System.out.println("You do " + dmg + " to " + m.getName());
+            int damageDoneToMonster = damageDone(m);
+            m.subtractHealth(damageDoneToMonster);
+            System.out.println("You " + getPlayerAttackString()+ " " + m.getName() + " for "+ damageDoneToMonster);
             if(m.getHealth() > 0) {
-                if(!monsterMiss){
-                    health -= m.getStrength() * monsterMultiplyer;
-                    System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength()*monsterMultiplyer);
-                }
-                
+                health -= damageTaken(m);
             }
         }
-        if(m.getHealth() != 0)
+        if(m.getHealth() > 0)
             {System.out.println(m.getName() + " has " + m.getHealth() + " health left");}
         System.out.println("You have " + health + " left");
         System.out.println();
@@ -327,5 +287,75 @@ public class player {
         System.out.println("You level up " + temp);
         System.out.println("Your stats are now ");
         printStats();
+    }
+
+
+    private int damageTaken(monster m){
+        int monsterDamage;
+        boolean monsterMiss;
+        double monsterMultiplyer = 1;
+        //Did monster miss
+        if(TrekkerMath.randomInt(100, (agility * 2) - m.getSpeed()*2) > 90){
+            monsterMiss = true;
+        }
+        else{
+            monsterMiss = false;
+        }
+        if(monsterMiss == true){
+            monsterMultiplyer = 0;
+            System.out.println("The monster missed and you take 0 damage!");
+            return 0;
+        }
+
+        monsterDamage = (int)(m.getStrength() * monsterMultiplyer);
+        System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength()*monsterMultiplyer);
+        return monsterDamage - armour;
+    }
+
+    public int damageDone(monster m){
+        int baseDamageS = strength;
+        int baseDamageI = intelligence;
+        String attackType;
+        double multiplyer;
+        boolean playerMiss = false;
+        int retDamage;
+
+        if(TrekkerMath.randomInt(100, (intelligence * 3)) > 40){
+            multiplyer = TrekkerMath.randomDouble(2, 0);
+            if(multiplyer < .5){
+                playerMiss = true;
+            }
+            else{
+                playerMiss = false;
+            }
+        }
+        else {
+            multiplyer = 1;
+        }
+        if(playerMiss == true){
+            if(multiplyer != 0){
+                System.out.println("You swing and only graze the monster but it still does damage.");
+            }
+            if(multiplyer == 0){
+                System.out.println("You completely miss on your attack hitting nothing but air.");
+            }
+        }
+
+        for (item e : equipedItems) {
+            if(e.attackingItem()){
+                attackType = e.getType();
+                if(attackType.equals("Strength")){
+                    baseDamageS += e.getStatIncrease();
+                }
+                else if(attackType.equals("Intelligence")){
+                    baseDamageI += e.getStatIncrease();
+                }
+            }
+        }
+        if(baseDamageI > baseDamageS){ retDamage = baseDamageI;}
+        else retDamage = baseDamageS;
+        retDamage *= multiplyer;
+        if (retDamage == 0){retDamage =1;}
+        return retDamage;
     }
 }

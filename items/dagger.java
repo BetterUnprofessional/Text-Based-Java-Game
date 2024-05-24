@@ -6,19 +6,25 @@ public class dagger extends equipables{
     int damageToAdd;
     int agilityToAdd;
     public dagger(){
+        setIsAttackingItem(true);
         quality = (int)((Math.random() * 6) +1);
         damageToAdd = (int)(quality * 1.3);
         agilityToAdd = quality * 2;
         setPrice(15);
         setName("Dagger");
+        setType("Strength");
+    }
+    public int getStatIncrease(){
+        return damageToAdd;
     }
     public void onEquip(){
-        player.setStrength(player.getStrength() + damageToAdd);
         player.addAgility(agilityToAdd);
 
     }
     public void onUnequip(){
-        player.setStrength(player.getStrength() - damageToAdd);
         player.addAgility(agilityToAdd * -1);
+    }
+    public String getAttackString() {
+        return "stab";
     }
 }

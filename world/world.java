@@ -14,7 +14,7 @@ public class world {
     
     response resp = new response();
     Scanner input = new Scanner(System.in);
-    private int AREANUM = 0;
+    public static int AREANUM = 0;
     private int stage = 0;
     private String areas[] = {"Village", "Grassland", "Cave", "Hell", "A second Cave?", "A THIRD CAVE??", "Why is there two hells?", "Are you actually still playing???", "Bored Yet?", "How bout now?"}; 
 

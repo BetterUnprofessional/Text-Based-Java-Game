@@ -1,6 +1,5 @@
 package items;
 
-import playerFiles.player;
 
 public class sword extends equipables {
     private int quality;
@@ -8,19 +7,23 @@ public class sword extends equipables {
     
 
     public sword(){
+        setIsAttackingItem(true);
         quality = (int)((Math.random() * 6) +1);
         swordIncrease = 2*quality;
         setPrice(30);
         setName("Sword");
+        setType("Strength");
         
     }
-    
+    public int getStatIncrease(){
+        return swordIncrease;
+    }
     public void onEquip(){
-
-        player.setStrength(player.strength + swordIncrease);
     }
     
     public void onUnequip(){
-        player.setStrength(player.strength - swordIncrease);
+    }
+    public String getAttackString() {
+        return "slice";
     }
 }
