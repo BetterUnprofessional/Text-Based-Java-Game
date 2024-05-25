@@ -2,10 +2,8 @@ package world;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import items.*;
-import monsters.monster;
 import playerFiles.player;
 
 public class shopitems {
@@ -49,7 +47,7 @@ public class shopitems {
 
 
 
-        for(int i = 0; i < randomItems.length-1; i++){
+        for(int i = 0; i < randomItems.length-2; i++){
             Class<? extends consumables> itemType = consumableShopItems.get((int)(Math.random() * consumableShopItems.size()));
             try {
                 Constructor<? extends consumables> ctor = itemType.getDeclaredConstructor();
@@ -72,28 +70,28 @@ public class shopitems {
             }
 
         }
+        for(int i =2; i < randomItems.length; i++){
+            Class<? extends equipables> itemType = equipableShopItems.get((int)(Math.random() * equipableShopItems.size()));
+                try {
+                    Constructor<? extends equipables> ctor = itemType.getDeclaredConstructor();
+                    item a = ctor.newInstance();
+                    randomItems[i] = a;
 
-        Class<? extends equipables> itemType = equipableShopItems.get((int)(Math.random() * equipableShopItems.size()));
-            try {
-                Constructor<? extends equipables> ctor = itemType.getDeclaredConstructor();
-                item a = ctor.newInstance();
-                randomItems[3] = a;
-                
-                
-            } catch (NoSuchMethodException e) {
-                // Handle the case where the default constructor is not found
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                // Handle the instantiation exception
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // Handle illegal access exception
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // Handle invocation target exception
-                e.printStackTrace();
+
+                } catch (NoSuchMethodException e) {
+                    // Handle the case where the default constructor is not found
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    // Handle the instantiation exception
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    // Handle illegal access exception
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    // Handle invocation target exception
+                    e.printStackTrace();
+                }
             }
-
         return randomItems;
     }
 

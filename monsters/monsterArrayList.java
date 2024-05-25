@@ -3,6 +3,7 @@ package monsters;
 import java.util.ArrayList;
 
 import util.TrekkerMath;
+import world.world;
 
 public class monsterArrayList {
 
@@ -16,11 +17,20 @@ public class monsterArrayList {
         monsterSubclasses.add(witch.class);
         monsterSubclasses.add(goblin.class);
         monsterSubclasses.add(snake.class);
-        monsterSubclasses.add(troll.class);
+        
 
 
         //Add boss Classes
         bossSubclasses.add(cthulhu.class);
+        bossSubclasses.add(hydra.class);
+    }
+
+
+    public static void updateMonsterArrayListOnAreaUpdate(){
+        if(world.AREANUM == 2){
+            monsterSubclasses.remove(slime.class);
+            monsterSubclasses.add(troll.class);
+        }
     }
     
     public static Class<? extends monster> getMonsterType(){

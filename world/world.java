@@ -140,6 +140,7 @@ public class world {
     private void openDungeon(){
         if(stage % 5 == 0 && AREANUM < areas.length - 1){
             AREANUM++;
+            monsterArrayList.updateMonsterArrayListOnAreaUpdate();
         }
         System.out.println("You arrive in " + areas[AREANUM] + " on stage "  + stage);
 
@@ -149,10 +150,16 @@ public class world {
 
 
         //create monster
-        monster m = monsterCreater.createMonster();
-        m.printMonster();
-        monsterMenu(m);
-        
+        if(stage % 10 == 9){
+            boss b = monsterCreater.createBoss();
+            b.printMonster();
+            monsterMenu(b);
+        }
+        else{
+            monster m = monsterCreater.createMonster();
+            m.printMonster();
+            monsterMenu(m);
+        }
         
 
         /*
@@ -187,8 +194,8 @@ public class world {
                 if(m.getHealth() <= 0){
                     
                     System.out.println("You defeated " + m.getName() + "!");
-                    int coinGain = (int)((pinfo.luck * stageNum) + 4);
-                    int xpGain = (int)((pinfo.luck * (stageNum+1))*20);
+                    int coinGain = (int)((pinfo.luck * m.getLevel()) + 4);
+                    int xpGain = (int)((pinfo.luck * m.getLevel())*20);
                     System.out.println("You obtained " + coinGain + " shmeckles and " + xpGain + " XP!");
                     player.BankBalance += coinGain;
                     pinfo.gainXP(xpGain);

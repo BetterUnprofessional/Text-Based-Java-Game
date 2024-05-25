@@ -70,18 +70,8 @@ public class runTime
         while(true){
             
             W.menu();
-            //initial input
-            /* 
-            String input = userInput.nextLine();
             
-            if(response.quit(input)){System.exit(0);}
-
-            System.out.println("You're in " + W.getArea() + "on stage " + W.getStage());
-
-            W.menu();
-            */
             
-            System.out.println("Continuing the loop");
         }
         
     }

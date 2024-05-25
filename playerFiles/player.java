@@ -8,7 +8,6 @@ import monsters.*;
 import util.*;
 
 public class player {
-    public static ArrayList<Integer> playerItemIDs = new ArrayList<Integer>();
     //Overall inventory
     public static ArrayList<item> inventory = new ArrayList<item>();
     //Consumables
@@ -308,7 +307,12 @@ public class player {
         }
 
         monsterDamage = (int)(m.getStrength() * monsterMultiplyer);
-        System.out.println(m.getName() + " " + m.attackString() + " for " + m.getStrength()*monsterMultiplyer);
+        if(monsterDamage < armour){
+            System.out.println("The " + m.getName() + " tries to " + m.attackString() + " but your strong armour repels their attack");
+            return 0;
+        }
+        System.out.println(m.getName() + " " + m.attackString() + " for " + (m.getStrength()*monsterMultiplyer - armour));
+        m.attackEffects(monsterDamage - armour);
         return monsterDamage - armour;
     }
 

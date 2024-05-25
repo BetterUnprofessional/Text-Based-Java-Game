@@ -77,6 +77,9 @@ public class monster {
     public int getHealth(){
         return mHealth;
     }
+    public void setHealth(int x){
+        mHealth = x;
+    }
     public int subtractHealth(int x){
         if(mArmour != 0){
             double armMultiplyer = 1.0 / mArmour;
@@ -113,6 +116,7 @@ public class monster {
     public String attackString(){
         return "slashes you for";
     }
+    public void attackEffects(int x){}
 
 
     public void printMonster(){

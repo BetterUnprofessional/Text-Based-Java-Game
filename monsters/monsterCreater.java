@@ -37,9 +37,37 @@ public class monsterCreater {
         }
 
         return null;
-        
-        //monster m = new ctor.newInstance(world, player);
     }
+
+
+    public static boss createBoss(){
+
+        //Get monster type
+        //Class<?> monsterType = 
+
+        Class<? extends boss> mType = monsterArrayList.getBossMonsterType();
+        try {
+            Constructor<? extends boss> ctor = mType.getDeclaredConstructor();
+            boss b = ctor.newInstance();
+            return b;
+        } catch (NoSuchMethodException e) {
+            // Handle the case where the default constructor is not found
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            // Handle the instantiation exception
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // Handle illegal access exception
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            // Handle invocation target exception
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
     public static int fastMonsterSpeed(){
         if(player.getPlayerLevel() > 10){
             return (int)(TrekkerMath.randomDouble(2, .9) * (player.getPlayerLevel() / 4));
