@@ -48,35 +48,14 @@ public class world {
 
             //OPEN SHOP!!!
             if(resp.Shop(Ans)){
-
-                /////OPEN SHOP NOT SURE WHAT THATLL DO
-                //done
                 openShop();
             }
-            //OPEN DUNGEON
             if(resp.Dungeon(Ans)){
-
-                //DUNGEON OOOOOOOOO
-
                 openDungeon();
-
             }
             if(resp.Items(Ans)){
-                pinfo.printPlayerItems();
-                System.out.println("Would you like to use an item?");
-                String userInput = input.nextLine();
-                if(resp.respondNo(userInput)){}
-                else if(resp.respondYes(userInput)){
-                    System.out.println("Which item would you like to use?");
-                    int temp = input.nextInt();
-                    player.inventory.get(temp - 1).Use();
-                    
-
-
-                }
-                
+                itemMenu();
             }
-            //input.close();
         }
         else{
             openDungeon();
@@ -112,7 +91,7 @@ public class world {
         }
 
         //yes buy shit
-        if(resp.respondYes(userInput)){
+        if(response.respondYes(userInput)){
             item[] shop = shopitems.getShopArray();
             System.out.println("What Item Would you like to buy?");
             System.out.println("Number ___");
@@ -195,7 +174,7 @@ public class world {
                     
                     System.out.println("You defeated " + m.getName() + "!");
                     int coinGain = (int)((pinfo.luck * m.getLevel()) + 4);
-                    int xpGain = (int)((pinfo.luck * m.getLevel())*20);
+                    int xpGain = (int)((pinfo.luck * m.getLevel())*4);
                     System.out.println("You obtained " + coinGain + " shmeckles and " + xpGain + " XP!");
                     player.BankBalance += coinGain;
                     pinfo.gainXP(xpGain);
@@ -210,13 +189,25 @@ public class world {
             //Use an item during a fight
             /////////////////////////////////////////
             else if(resp.Items(h)){
-                pinfo.printPlayerItems();
+                itemMenu();
+            }
+        
+        }
+    }
+    public static void itemMenu(){
+        player.printPlayerItems();
+        Scanner input = new Scanner(System.in);
                 System.out.println("Would you like to use an item?");
-                h = input.nextLine();
+                String h = input.nextLine();
 
                 try{
                     int number = Integer.parseInt(h);
-                    player.inventory.get(number-1).Use();
+                    try {
+                        player.inventory.get(number-1).Use();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("You dont have that many items you goof!");
+                    }
+                    
 
 
                 }
@@ -224,14 +215,15 @@ public class world {
                     //do nothing
                 }
 
-                if(resp.respondYes(h)){
+                if(response.respondYes(h)){
                     System.out.println("What is the number of the item you would like to use");
                     int temp = input.nextInt();
                     input.nextLine();
-                    player.inventory.get(temp-1).Use();
+                    try {
+                        player.inventory.get(temp-1).Use();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("You dont have that many items you goof!");
+                    }
                 }
-            }
-        
-        }
     }
 }

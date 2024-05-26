@@ -14,8 +14,6 @@ public class runTime
     public static void main(String[] args) {
         new shopitems();
         new monsterArrayList();
-        monster h = monsterCreater.createMonster();
-        System.out.println(h.getClass());
         
         Scanner userInput = new Scanner(System.in);
 
@@ -52,7 +50,7 @@ public class runTime
         System.out.println("Its time to allocate some skill points!");
         System.out.println("Would You like to allocate your own points? ");
         String Response = userInput.nextLine();
-        if(userResponse.respondYes(Response))
+        if(response.respondYes(Response))
         {
             System.out.println("You have 10 points to spend on 4 different attributes! Choose wisely.");
             p1.playerPointAllocation();

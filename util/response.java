@@ -1,7 +1,7 @@
 package util;
 public class response{
 
-    public boolean respondYes(String response){
+    public static boolean respondYes(String response){
 
         response = response.toLowerCase();
         if (response.contains("Ye") || response.contains("Sure") || response.contains("ye") || response.contains("sure"))

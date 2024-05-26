@@ -6,6 +6,7 @@ public class chestplate extends equipables{
     int quality;
     public chestplate(){
         quality = (int)((Math.random() * 6) +1);
+        setQuality(quality);
         armourAdd = quality * 2;
         setPrice(45);
         setName("Chestplate");

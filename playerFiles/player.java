@@ -203,10 +203,13 @@ public class player {
     }
 
     */
-    public void printPlayerItems(){
+    public static void printPlayerItems(){
         int printingNum = 1;
         for(item e : inventory){
-            System.out.println(printingNum + ": " + e);
+            System.out.print(printingNum + ": " + e);
+            if(e.getQuality() != null){
+                System.out.println(" - " + e.getQuality());
+            }
             printingNum++;
         }
         
@@ -253,39 +256,44 @@ public class player {
         }
         if(m.getHealth() > 0)
             {System.out.println(m.getName() + " has " + m.getHealth() + " health left");}
-        System.out.println("You have " + health + " left");
+        System.out.println("You have " + health + " health left");
         System.out.println();
         
     }
 
     private void levelPrompt(){
-        System.out.println("Which stat would you like to level up?");
-        System.out.println("Your options are, strength, agility, intelligence, or health");
-        Scanner input = new Scanner(System.in);
-        String temp = input.nextLine();
-        try {
-            int num = Integer.parseInt(temp) - 1;
-            if(num == 1){temp = "strength";}
-            if(num == 2){temp = "agility";}
-            if(num == 3){temp = "intelligence";}
-            if(num == 4){temp = "health";}
-        } catch (NumberFormatException ex) {}
-        if(temp.equals("strength")){
-            strength += 1;
+        if(xp > xpToLevelUp){
+            System.out.println("Which stat would you like to level up?");
+            System.out.println("Your options are, strength, agility, intelligence, or health");
+            Scanner input = new Scanner(System.in);
+            String temp = input.nextLine();
+            try {
+                int num = Integer.parseInt(temp) - 1;
+                if(num == 1){temp = "strength";}
+                else if(num == 2){temp = "agility";}
+                else if(num == 3){temp = "intelligence";}
+                else if(num == 4){temp = "health";}
+                else{temp = "health";}
+            } catch (NumberFormatException ex) {}
+            if(temp.equals("strength")){
+                strength += 1;
+            }
+            else if(temp.equals("agility")){
+                agility += 1;
+            }
+            else if(temp.equals("intelligence")){
+                intelligence += 1;
+            }
+            else {
+                maxHealth += 10;
+                health += (int)(((double)health/maxHealth)*10);
+                temp = "health";
+            }
+            System.out.println("You level up " + temp);
+            System.out.println("Your stats are now ");
+            printStats();
+            levelPrompt();
         }
-        if(temp.equals("agility")){
-            agility += 1;
-        }
-        if(temp.equals("intelligence")){
-            intelligence += 1;
-        }
-        if(temp.equals("health")){
-            maxHealth += 10;
-            health += (int)(((double)health/maxHealth)*10);
-        }
-        System.out.println("You level up " + temp);
-        System.out.println("Your stats are now ");
-        printStats();
     }
 
 
@@ -344,7 +352,7 @@ public class player {
                 System.out.println("You completely miss on your attack hitting nothing but air.");
             }
         }
-
+        boolean hasIntWeapon = false;
         for (item e : equipedItems) {
             if(e.attackingItem()){
                 attackType = e.getType();
@@ -353,11 +361,17 @@ public class player {
                 }
                 else if(attackType.equals("Intelligence")){
                     baseDamageI += e.getStatIncrease();
+                    hasIntWeapon = true;
                 }
             }
         }
-        if(baseDamageI > baseDamageS){ retDamage = baseDamageI;}
-        else retDamage = baseDamageS;
+        if(hasIntWeapon){
+            if(baseDamageI > baseDamageS){ retDamage = baseDamageI;}
+            else retDamage = baseDamageS;
+        }
+        else{
+            retDamage = baseDamageS;
+        }
         retDamage *= multiplyer;
         if (retDamage == 0){retDamage =1;}
         return retDamage;

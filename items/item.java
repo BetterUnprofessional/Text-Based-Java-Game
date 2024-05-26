@@ -46,4 +46,7 @@ public abstract class item {
     public String getAttackString(){
         return "";
     }
+    public String getQuality(){
+        return null;
+    }
 }

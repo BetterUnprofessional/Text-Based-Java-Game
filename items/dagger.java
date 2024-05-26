@@ -8,6 +8,7 @@ public class dagger extends equipables{
     public dagger(){
         setIsAttackingItem(true);
         quality = (int)((Math.random() * 6) +1);
+        setQuality(quality);
         damageToAdd = (int)(quality * 1.3);
         agilityToAdd = quality * 2;
         setPrice(15);

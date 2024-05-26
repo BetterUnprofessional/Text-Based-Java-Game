@@ -6,6 +6,7 @@ public class helmet extends equipables{
     int quality;
     public helmet(){
         quality = (int)((Math.random() * 6) +1);
+        setQuality(quality);
         armourAdd = (int)(quality * 1.3);
         setPrice(20);
         setName("helmet");
