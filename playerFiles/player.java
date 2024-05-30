@@ -18,17 +18,17 @@ public class player {
 
     public static String name;
     public static int BankBalance = 100;
-    private String race;
+    private static String race;
     public static int strength;
     public static int agility;
     public static int intelligence;
     public static int armour = 0;
-    public double luck = Math.random() * 4;
+    public static double luck = Math.random() * 4;
     public static int playerLevel;
     private static int maxHealth;
-    private static int health;
-    private int xpToLevelUp = 100;
-    private int xp;
+    public static int health;
+    private static int xpToLevelUp = 100;
+    private static int xp;
 
 
     int totalMaxStartingSkills = 10;
@@ -41,7 +41,9 @@ public class player {
         playerLevel = 10;
         xp = 0;
     }
-
+    public static void update(){
+        
+    }
     //Allocating Skill Points
     public void allocateSkillPoints(int pStrength, int pAgility, int pIntelligence){
         strength = pStrength;
@@ -58,7 +60,7 @@ public class player {
     }
     
     //Print your stats
-    public void printStats(){
+    public static void printStats(){
         System.out.println("Health: "+ health +"/"+maxHealth + "\nStrength: " + strength + "\nAgility: " + agility + "\nIntelligence: " + intelligence);
     }
 
@@ -149,25 +151,25 @@ public class player {
             }
 
             if(totalpts < 10){
-                int response = 0;
+                int r = 0;
                 //System.out.println("\n You have " + (10-totalpts) + " left to spend. \nWould you like to go back and add points to the attributes?");
                 String userResponse = userInput.nextLine();
-                while(response == 0){
+                while(r == 0){
                     System.out.println("\nYou have " + (10-totalpts) + " left to spend. \nWould you like to go back and add points to the attributes?");
                     userResponse = userInput.nextLine();
-                    if(R.respondYes(userResponse)){
-                        response = 1;
+                    if(response.respondYes(userResponse)){
+                        r = 1;
                         break;
                         
 
                     }
                     else if(R.respondNo(userResponse)){
-                        response = 2;
+                        r = 2;
                         break;
                     }
                     
                 }
-            if(response == 2){
+            if(r == 2){
                 break;
             }
             }
@@ -181,7 +183,7 @@ public class player {
     public static int getPlayerLevel(){
         return playerLevel;
     }
-    public void gainXP(int exp){
+    public static void gainXP(int exp){
         xp += exp;
         if(xp > xpToLevelUp){
             playerLevel++;
@@ -218,7 +220,7 @@ public class player {
     ///////////////////////////////////////////////////
     // Fighting things
     ///////////////////////////////////////////////////
-    public String getPlayerAttackString(){
+    public static String getPlayerAttackString(){
         for (item item : equipedItems) {
             if(item.attackingItem()){
                 if(!item.getAttackString().equals(""))
@@ -228,7 +230,7 @@ public class player {
         return "slap";
     }
 
-    public void fightMonster(monster m){
+    public static void fightMonster(monster m){
         
         
 
@@ -261,7 +263,7 @@ public class player {
         
     }
 
-    private void levelPrompt(){
+    private static void levelPrompt(){
         if(xp > xpToLevelUp){
             System.out.println("Which stat would you like to level up?");
             System.out.println("Your options are, strength, agility, intelligence, or health");
@@ -297,7 +299,7 @@ public class player {
     }
 
 
-    private int damageTaken(monster m){
+    private static int damageTaken(monster m){
         int monsterDamage;
         boolean monsterMiss;
         double monsterMultiplyer = 1;
@@ -324,7 +326,7 @@ public class player {
         return monsterDamage - armour;
     }
 
-    public int damageDone(monster m){
+    public static int damageDone(monster m){
         int baseDamageS = strength;
         int baseDamageI = intelligence;
         String attackType;

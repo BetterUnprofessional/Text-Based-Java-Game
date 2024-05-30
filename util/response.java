@@ -47,14 +47,14 @@ public class response{
         }
         else return false;
     }
-    public boolean Items(String response){
+    public static boolean Items(String response){
         response = response.toLowerCase();
         if(response.contains("items")  || response.contains("Items") || response.contains("Item") || response.contains("item")){
             return true;
         }
         else return false;
     }
-    public boolean respondFight(String response){
+    public static boolean respondFight(String response){
         response = response.toLowerCase();
         if(response.contains("fight")  || response.contains("attack") || response.contains("brawl") || response.contains("kill")){
             return true;

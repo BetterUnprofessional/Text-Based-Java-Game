@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import items.*;
 import playerFiles.player;
+import util.TrekkerMath;
 
 public class shopitems {
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,5 +125,53 @@ public class shopitems {
     }
     public static item[] getShopArray(){
         return itemsInShop;
+    }
+        public static item getRandomItem(){
+        int h = TrekkerMath.randomInt(0,1);
+        if(h == 0){
+            Class<? extends equipables> itemType = equipableShopItems.get((int)(Math.random() * equipableShopItems.size()));
+                try {
+                    Constructor<? extends equipables> ctor = itemType.getDeclaredConstructor();
+                    item a = ctor.newInstance();
+                    return a;
+
+
+                } catch (NoSuchMethodException e) {
+                    // Handle the case where the default constructor is not found
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    // Handle the instantiation exception
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    // Handle illegal access exception
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    // Handle invocation target exception
+                    e.printStackTrace();
+                }
+        }
+        else{
+            Class<? extends consumables> itemType = consumableShopItems.get((int)(Math.random() * consumableShopItems.size()));
+                try {
+                    Constructor<? extends consumables> ctor = itemType.getDeclaredConstructor();
+                    item a = ctor.newInstance();
+                    return a;
+
+
+                } catch (NoSuchMethodException e) {
+                    // Handle the case where the default constructor is not found
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    // Handle the instantiation exception
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    // Handle illegal access exception
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    // Handle invocation target exception
+                    e.printStackTrace();
+                }
+        }
+        return null;
     }
 }

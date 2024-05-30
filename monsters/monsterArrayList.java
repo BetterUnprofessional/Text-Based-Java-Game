@@ -17,6 +17,7 @@ public class monsterArrayList {
         monsterSubclasses.add(witch.class);
         monsterSubclasses.add(goblin.class);
         monsterSubclasses.add(snake.class);
+        monsterSubclasses.add(mimic.class);
         
 
 

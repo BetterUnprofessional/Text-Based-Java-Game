@@ -9,27 +9,24 @@ import util.*;
 import items.*;
 
 public class world {
-    private player pinfo;
     
     
     response resp = new response();
     Scanner input = new Scanner(System.in);
     public static int AREANUM = 0;
-    private int stage = 0;
     private String areas[] = {"Village", "Grassland", "Cave", "Hell", "A second Cave?", "A THIRD CAVE??", "Why is there two hells?", "Are you actually still playing???", "Bored Yet?", "How bout now?"}; 
 
     public static int stageNum = 0;
 
 
 
-    public world(player p1){
-        pinfo = p1;
+    public world(){
     }
     public String getArea(){
         return areas[AREANUM];
     }
     public int getStage(){
-        return stage;
+        return stageNum;
     }
 
 
@@ -40,7 +37,7 @@ public class world {
         Scanner input = new Scanner(System.in);
         
 
-        if(stage % 5 == 0){
+        if(stageNum % 5 == 0){
             System.out.println("You have some options of what to do: \n");
             System.out.println("Shop \nDungeon \nItems \nQuit \n");
             String Ans = input.nextLine();
@@ -117,11 +114,11 @@ public class world {
     }
 
     private void openDungeon(){
-        if(stage % 5 == 0 && AREANUM < areas.length - 1){
+        if(stageNum % 5 == 0 && AREANUM < areas.length - 1){
             AREANUM++;
             monsterArrayList.updateMonsterArrayListOnAreaUpdate();
         }
-        System.out.println("You arrive in " + areas[AREANUM] + " on stage "  + stage);
+        System.out.println("You arrive in " + areas[AREANUM] + " on stage "  + stageNum);
 
         // 1 = item
         // 2 = monster
@@ -129,15 +126,20 @@ public class world {
 
 
         //create monster
-        if(stage % 10 == 9){
+        if(stageNum % 10 == 9){
             boss b = monsterCreater.createBoss();
             b.printMonster();
             monsterMenu(b);
         }
         else{
-            monster m = monsterCreater.createMonster();
-            m.printMonster();
-            monsterMenu(m);
+            if(TrekkerMath.randomInt(1, 0) == 0){
+                rooms.getRandomRoom();
+            }
+            else{
+                monster m = monsterCreater.createMonster();
+                m.printMonster();
+                monsterMenu(m);
+            }
         }
         
 
@@ -160,25 +162,25 @@ public class world {
          */
     }
 
-    private void monsterMenu(monster m){
+    public static void monsterMenu(monster m){
+        Scanner input = new Scanner(System.in);
         while(m.getHealth() > 0){
             System.out.println();
             System.out.println("What would you like to do?");
             String h = input.nextLine(); 
             if(response.quit(h)){System.exit(0);}
-            if(resp.respondFight(h)){
-                    pinfo.fightMonster(m);
+            if(response.respondFight(h)){
+                    player.fightMonster(m);
 
                 
                 if(m.getHealth() <= 0){
                     
                     System.out.println("You defeated " + m.getName() + "!");
-                    int coinGain = (int)((pinfo.luck * m.getLevel()) + 4);
-                    int xpGain = (int)((pinfo.luck * m.getLevel())*4);
+                    int coinGain = (int)((player.luck * m.getLevel()) + 4);
+                    int xpGain = (int)((player.luck * m.getLevel())*4);
                     System.out.println("You obtained " + coinGain + " shmeckles and " + xpGain + " XP!");
                     player.BankBalance += coinGain;
-                    pinfo.gainXP(xpGain);
-                    stage++;
+                    player.gainXP(xpGain);
                     stageNum++;
                 }
                 else{
@@ -188,7 +190,7 @@ public class world {
             //////////////////////////////////////////
             //Use an item during a fight
             /////////////////////////////////////////
-            else if(resp.Items(h)){
+            else if(response.Items(h)){
                 itemMenu();
             }
         

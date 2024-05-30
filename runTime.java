@@ -3,8 +3,8 @@ import java.util.Scanner;
 import monsters.*;
 import playerFiles.*;
 import util.response;
-import world.shopitems;
-import world.world;
+import world.*;
+
 
 public class runTime
 {
@@ -19,7 +19,7 @@ public class runTime
 
         response userResponse = new response();
 
-
+        rooms.getRandomRoom();
         //Startup
         System.out.println("What is your name young one?");
         String Name = userInput.nextLine();
@@ -30,21 +30,6 @@ public class runTime
         
         //Create Player
         player p1 = new player(Name, race);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
-        //
-        //
-        //   Testing Giving Items to the Player
-        //  
-        //      Result : It works
-        //////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        //p1.addItemToPlayer(2);
-        //p1.addItemToPlayer(0);
-        //p1.addItemToPlayer(5);
-        //p1.printPlayerItems();
-
 
         //Allocate poins
         System.out.println("Its time to allocate some skill points!");
@@ -60,15 +45,15 @@ public class runTime
             p1.allocateSkillPoints();
 
         }
-        world W = new world(p1);
+        world W = new world();
         //Play Loop
         
         System.out.println("These are your final stats!");
-        p1.printStats();
+        player.printStats();
         while(true){
             
             W.menu();
-            
+            player.update();
             
         }
         
