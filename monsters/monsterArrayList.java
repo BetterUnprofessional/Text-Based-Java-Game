@@ -35,9 +35,9 @@ public class monsterArrayList {
     }
     
     public static Class<? extends monster> getMonsterType(){
-        return monsterSubclasses.get(TrekkerMath.randomInt( monsterSubclasses.size(), 0));
+        return monsterSubclasses.get(TrekkerMath.randomInt( monsterSubclasses.size()-1, 0));
     }
     public static Class<? extends boss> getBossMonsterType(){
-        return bossSubclasses.get(TrekkerMath.randomInt( bossSubclasses.size(), 0));
+        return bossSubclasses.get(TrekkerMath.randomInt( bossSubclasses.size()-1, 0));
     }
 }

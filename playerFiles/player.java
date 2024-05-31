@@ -29,7 +29,10 @@ public class player {
     public static int health;
     private static int xpToLevelUp = 100;
     private static int xp;
-
+    public static boolean isBuff = false;
+    public static String buffType;
+    public static int buffLength;
+    public static int currentBuffDuration;
 
     int totalMaxStartingSkills = 10;
 
@@ -42,7 +45,9 @@ public class player {
         xp = 0;
     }
     public static void update(){
-        
+        if(isBuff == true){
+            updateBuffs();
+        }
     }
     //Allocating Skill Points
     public void allocateSkillPoints(int pStrength, int pAgility, int pIntelligence){
@@ -98,6 +103,61 @@ public class player {
     }
     public static String getName(){
         return name;
+    }
+    public static void addItemToPlayer(item i){
+        inventory.add(i);
+        if(i.isConsumable()){
+            consumableInv.add(i);
+        }
+        else{
+            equipableItems.add(i);
+        }
+    }
+    public static void updateBuffs(){
+        currentBuffDuration++;
+        if(currentBuffDuration >= buffLength){
+            deapplyBuff(buffType);
+            buffType = null;
+            buffLength = 0;
+            currentBuffDuration = 0;
+            isBuff = false;
+        }
+    }
+    public static void deapplyBuff(String bType){
+        isBuff = false;
+        switch(bType){
+            case "Strength":
+            strength -= 2;
+            break;
+            case "Intelligence":
+            intelligence -=2;
+            break;
+            case "Agility":
+            agility -=2;
+            break;
+            case "Armour":
+            armour -=2;
+            break;
+        }
+    }
+    public static void applyBuff(String bType, int bLength){
+        buffLength = bLength;
+        isBuff = true;
+        buffType = bType;
+        switch(bType){
+            case "Strength":
+            strength += 2;
+            break;
+            case "Intelligence":
+            intelligence +=2;
+            break;
+            case "Agility":
+            agility +=2;
+            break;
+            case "Armour":
+            armour +=2;
+            break;
+        }
     }
     //Long ass function for asking and allocating skill points
     public void playerPointAllocation(){
@@ -188,8 +248,6 @@ public class player {
         if(xp > xpToLevelUp){
             playerLevel++;
             levelPrompt();
-            xp -= xpToLevelUp;
-            xpToLevelUp *= 1.375;
         }
     }
 
@@ -211,6 +269,9 @@ public class player {
             System.out.print(printingNum + ": " + e);
             if(e.getQuality() != null){
                 System.out.println(" - " + e.getQuality());
+            }
+            else{
+                System.out.println();
             }
             printingNum++;
         }
@@ -291,6 +352,8 @@ public class player {
                 health += (int)(((double)health/maxHealth)*10);
                 temp = "health";
             }
+            xp -= xpToLevelUp;
+            xpToLevelUp *= 1.375;
             System.out.println("You level up " + temp);
             System.out.println("Your stats are now ");
             printStats();
@@ -320,6 +383,9 @@ public class player {
         if(monsterDamage < armour){
             System.out.println("The " + m.getName() + " tries to " + m.attackString() + " but your strong armour repels their attack");
             return 0;
+        }
+        if(monsterDamage >= health){
+            death(m, monsterDamage);
         }
         System.out.println(m.getName() + " " + m.attackString() + " for " + (m.getStrength()*monsterMultiplyer - armour));
         m.attackEffects(monsterDamage - armour);
@@ -377,5 +443,14 @@ public class player {
         retDamage *= multiplyer;
         if (retDamage == 0){retDamage =1;}
         return retDamage;
+    }
+
+    public static void death(monster m, int monsterDamage){
+        health = 0;
+        System.out.println("You have been killed by " + m.getName() + " after it " + m.attackString() + " for " + monsterDamage);
+        System.out.println("Here are your final stats");
+        printPlayerItems();
+        printStats();
+        System.exit(0);
     }
 }

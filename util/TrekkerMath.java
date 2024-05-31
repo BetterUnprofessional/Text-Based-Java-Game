@@ -2,7 +2,7 @@ package util;
 public class TrekkerMath {
     
     public static int randomInt(int toVal, int fromVal){
-        int ret = (int)(Math.random() * toVal) + fromVal;
+        int ret = (int)(Math.random() * (toVal + 1)) + fromVal;
         return ret;
     }
     public static double randomDouble(double toVal, double fromVal){

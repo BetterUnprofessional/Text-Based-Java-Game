@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.Scanner;
 import monsters.*;
 import playerFiles.*;
@@ -16,10 +16,6 @@ public class runTime
         new monsterArrayList();
         
         Scanner userInput = new Scanner(System.in);
-
-        response userResponse = new response();
-
-        rooms.getRandomRoom();
         //Startup
         System.out.println("What is your name young one?");
         String Name = userInput.nextLine();

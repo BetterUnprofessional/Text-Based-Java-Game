@@ -8,7 +8,7 @@ public class hydra extends boss {
     public hydra(){
         setName("Hydra");
         setStrength(TrekkerMath.randomInt(20, 7) + (player.playerLevel + world.stageNum));
-        setOrigionalHealth((int)(TrekkerMath.randomDouble(3, 2.5) * (player.playerLevel + world.stageNum + 4)));
+        setOrigionalHealth((int)(TrekkerMath.randomDouble(3, 2.5) * (player.playerLevel + world.AREANUM + 4)));
     }
     public void attackEffects(int damageDoneToPlayer){
         for(item e : player.equipedItems){

@@ -5,12 +5,12 @@ import playerFiles.player;
 public abstract class equipables extends item {
     private boolean equipped = false;
     private String qualityString;
-    private int quality;
+    //private int quality;
     public equipables(){
         setIsConsumable(false);
     }
     public void setQuality(int x){
-        quality = x;
+        //quality = x;
         //1.bad 2.mediocre 3.fine 4.good 5.excelent 6.perfect
         if(x ==1){qualityString = "Bad";}
         else if (x ==2){ qualityString = "Mediocre";}

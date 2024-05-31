@@ -50,7 +50,7 @@ public class world {
             if(resp.Dungeon(Ans)){
                 openDungeon();
             }
-            if(resp.Items(Ans)){
+            if(response.Items(Ans)){
                 itemMenu();
             }
         }
@@ -132,7 +132,7 @@ public class world {
             monsterMenu(b);
         }
         else{
-            if(TrekkerMath.randomInt(1, 0) == 0){
+            if(TrekkerMath.randomInt(10, 0) == 0){
                 rooms.getRandomRoom();
             }
             else{

@@ -7,7 +7,7 @@ public  class snake extends monster {
     public snake(){
         super.setName("Snake");
         super.setStrength(TrekkerMath.randomInt(2, 1)* (world.AREANUM +1));
-        super.setOrigionalHealth((int)(TrekkerMath.randomDouble(1.34, .7) * (player.playerLevel + world.stageNum + 4)));
+        super.setOrigionalHealth((int)(TrekkerMath.randomDouble(1.34, .7) * (player.playerLevel + world.AREANUM + 4)));
         super.setSpeed((int)(monsterCreater.fastMonsterSpeed() * 1.5));
     }
     public String attackString(){

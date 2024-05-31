@@ -1,6 +1,5 @@
 package monsters;
 import playerFiles.player;
-import world.world;
 
 public class monster {
 
