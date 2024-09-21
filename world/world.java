@@ -1,24 +1,17 @@
 package world;
 
-
-//import java.lang.Math;
 import java.util.Scanner;
 import monsters.*;
 import playerFiles.*;
 import util.*;
 import items.*;
 
-public class world {
-    
-    
+public class world { 
     response resp = new response();
     Scanner input = new Scanner(System.in);
     public static int AREANUM = 0;
     private String areas[] = {"Village", "Grassland", "Cave", "Hell", "A second Cave?", "A THIRD CAVE??", "Why is there two hells?", "Are you actually still playing???", "Bored Yet?", "How bout now?"}; 
-
     public static int stageNum = 0;
-
-
 
     public world(){
     }
@@ -29,14 +22,8 @@ public class world {
         return stageNum;
     }
 
-
-
-
-
     public void menu(){
         Scanner input = new Scanner(System.in);
-        
-
         if(stageNum % 5 == 0){
             System.out.println("You have some options of what to do: \n");
             System.out.println("Shop \nDungeon \nItems \nQuit \n");
@@ -57,8 +44,6 @@ public class world {
         else{
             openDungeon();
         }
-
-
     }
     private void openShop(){
         shopitems.printShop();
@@ -67,26 +52,22 @@ public class world {
                 
         try{
             int UserResp = Integer.parseInt(userInput);
-
             //int numUserIsBuying = input.nextInt();
             item[] shop = shopitems.getShopArray();
             
             if(player.BankBalance >= shopitems.getShopArray()[UserResp-1].getPrice()){
-                //int buyNum = input.nextInt();
                 shopitems.buyItem(UserResp);
                 System.out.println();
                 System.out.println("You successfully bought " + shop[UserResp - 1] + " for " + shop[UserResp - 1].getPrice() + " shmeckles.");
             }
             else{
-                 System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
+                System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
                 menu();
             }
-
         }
         catch(NumberFormatException ex){
                     //do nothing ig
         }
-
         //yes buy shit
         if(response.respondYes(userInput)){
             item[] shop = shopitems.getShopArray();
@@ -96,7 +77,6 @@ public class world {
             input.nextLine();
 
             if(player.BankBalance >= shop[numUserIsBuying - 1].getPrice()){
-                //int buyNum = input.nextInt();
                 shopitems.buyItem(numUserIsBuying);
                 System.out.println();
                 System.out.println("You successfully bought " + shop[numUserIsBuying - 1] + " for " + shop[numUserIsBuying - 1].getPrice() + " shmeckles.");
@@ -104,8 +84,7 @@ public class world {
             else{
                 System.out.println("You dont have enough money to buy that! /n You only have " + player.BankBalance + " shmeckles.");
                 menu();
-            }
-                    
+            }            
         }
             //no dont buy shit recurse back to display menu()
             if(resp.respondNo(userInput)){
@@ -119,12 +98,6 @@ public class world {
             monsterArrayList.updateMonsterArrayListOnAreaUpdate();
         }
         System.out.println("You arrive in " + areas[AREANUM] + " on stage "  + stageNum);
-
-        // 1 = item
-        // 2 = monster
-        // 3 = special interaction
-
-
         //create monster
         if(stageNum % 10 == 9){
             boss b = monsterCreater.createBoss();
@@ -132,7 +105,9 @@ public class world {
             monsterMenu(b);
         }
         else{
-            if(TrekkerMath.randomInt(10, 0) == 0){
+            int randNum = TrekkerMath.randomInt(5, 0);
+            System.out.println(randNum);
+            if(randNum == 3){
                 rooms.getRandomRoom();
             }
             else{
@@ -141,25 +116,6 @@ public class world {
                 monsterMenu(m);
             }
         }
-        
-
-        /*
-
-        Commented Out for testing monster Purposes.
-
-
-        int toDoGen =(int)(Math.random() * 3) + 1;
-        if(toDoGen == 1){
-
-        }
-        else if(toDoGen == 2){
-            
-        }
-        else if(toDoGen == 3){
-
-        }
-
-         */
     }
 
     public static void monsterMenu(monster m){
@@ -171,10 +127,7 @@ public class world {
             if(response.quit(h)){System.exit(0);}
             if(response.respondFight(h)){
                     player.fightMonster(m);
-
-                
                 if(m.getHealth() <= 0){
-                    
                     System.out.println("You defeated " + m.getName() + "!");
                     int coinGain = (int)((player.luck * m.getLevel()) + 4);
                     int xpGain = (int)((player.luck * m.getLevel())*4);
@@ -193,7 +146,6 @@ public class world {
             else if(response.Items(h)){
                 itemMenu();
             }
-        
         }
     }
     public static void itemMenu(){
@@ -201,7 +153,6 @@ public class world {
         Scanner input = new Scanner(System.in);
                 System.out.println("Would you like to use an item?");
                 String h = input.nextLine();
-
                 try{
                     int number = Integer.parseInt(h);
                     try {
@@ -209,14 +160,10 @@ public class world {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("You dont have that many items you goof!");
                     }
-                    
-
-
                 }
                 catch(NumberFormatException ex){
                     //do nothing
                 }
-
                 if(response.respondYes(h)){
                     System.out.println("What is the number of the item you would like to use");
                     int temp = input.nextInt();

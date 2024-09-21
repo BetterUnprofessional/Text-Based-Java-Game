@@ -14,7 +14,9 @@ public class runTime
     public static void main(String[] args) {
         new shopitems();
         new monsterArrayList();
+        gui.runGui();
         
+
         Scanner userInput = new Scanner(System.in);
         //Startup
         System.out.println("What is your name young one?");
@@ -49,6 +51,7 @@ public class runTime
         while(true){
             
             W.menu();
+            System.out.print("ghalsf");
             player.update();
             
         }

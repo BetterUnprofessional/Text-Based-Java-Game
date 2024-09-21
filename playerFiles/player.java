@@ -114,6 +114,12 @@ public class player {
         }
     }
     public static void updateBuffs(){
+        if(name.equals("debug")){
+            System.out.println(buffType);
+            System.out.println(buffLength);
+            System.out.println(currentBuffDuration);
+            System.out.println(isBuff);
+        }
         currentBuffDuration++;
         if(currentBuffDuration >= buffLength){
             deapplyBuff(buffType);
@@ -142,21 +148,28 @@ public class player {
     }
     public static void applyBuff(String bType, int bLength){
         buffLength = bLength;
-        isBuff = true;
+        
         buffType = bType;
-        switch(bType){
-            case "Strength":
-            strength += 2;
-            break;
-            case "Intelligence":
-            intelligence +=2;
-            break;
-            case "Agility":
-            agility +=2;
-            break;
-            case "Armour":
-            armour +=2;
-            break;
+        currentBuffDuration = 0;
+        if(isBuff == false){
+            switch(bType){
+                case "Strength":
+                strength += 2;
+                break;
+                case "Intelligence":
+                intelligence +=2;
+                break;
+                case "Agility":
+                agility +=2;
+                break;
+                case "Armour":
+                armour +=2;
+                break;
+            }
+            isBuff = true;
+        }
+        else{
+            System.out.println("Your prayers have failed, another god favors you already!");
         }
     }
     //Long ass function for asking and allocating skill points
