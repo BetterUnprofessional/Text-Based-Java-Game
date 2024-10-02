@@ -18,7 +18,7 @@ public class player {
 
     public static String name;
     public static int BankBalance = 100;
-    private static String race;
+    //private static String race;
     public static int strength;
     public static int agility;
     public static int intelligence;
@@ -38,9 +38,9 @@ public class player {
 
 
     //Constructor
-    public player(String pName, String pRace){
+    public player(String pName){
         name = pName;
-        race = pRace;
+        //race = pRace;
         playerLevel = 10;
         xp = 0;
     }
@@ -74,8 +74,14 @@ public class player {
     public static int getMaxHealth(){
         return maxHealth;
     }
+    public static void setMaxHealth(int x){
+        maxHealth = x;
+    }
     public static int getHealth(){
         return health;
+    }
+    public static void setHealth(int x){
+        health = x;
     }
     public static void addHealth(int x){
         if(health + x < maxHealth)
@@ -89,6 +95,21 @@ public class player {
     public static void setStrength(int x){
         strength = x;
     }
+    //Agility Getter
+    public static int getAgility(){
+        return agility;
+    }
+    public static void setAgility(int x){
+        agility = x;
+    }
+    //Intelligence Getter
+    public static int getIntelligence(){
+        return intelligence;
+    }
+    public static void setIntelligence(int x){
+        intelligence = x;
+    }
+
     //Armour increase
     public static void addArmour(int x){
         armour += x;
@@ -97,6 +118,21 @@ public class player {
     public static void addAgility(int x){
         agility += x;
     }
+
+    //FOR FILE READING -- Finding Xp levels
+    public static int getXpToLevelUp(){
+        return xpToLevelUp;
+    }
+    public static void setXpToLevelUp(int x){
+        xpToLevelUp = x;
+    }
+    public static int getXP(){
+        return xp;
+    }
+    public static void setXP(int x){
+        xp = x;
+    }
+
     //Bank Balance
     public int getBankBalance(){
         return BankBalance;

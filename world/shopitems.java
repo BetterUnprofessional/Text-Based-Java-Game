@@ -11,6 +11,8 @@ public class shopitems {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // precondition: all shops are 4 items
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    public static ArrayList<Class<? extends item>> allItemsList = new ArrayList<Class<? extends item>>();
+
     public static ArrayList<Class<? extends consumables>> consumableShopItems = new ArrayList<Class<? extends consumables>>();
     public static ArrayList<Class<? extends equipables>> equipableShopItems = new ArrayList<Class<? extends equipables>>();
     
@@ -28,6 +30,16 @@ public class shopitems {
         equipableShopItems.add(helmet.class);
         consumableShopItems.add(bread.class);
         equipableShopItems.add(club.class);
+
+        allItemsList.add(fish.class);
+        allItemsList.add(sword.class);
+        allItemsList.add(dagger.class);
+        allItemsList.add(chestplate.class);
+        allItemsList.add(threeCourseMeal.class);
+        allItemsList.add(wand.class);
+        allItemsList.add(helmet.class);
+        allItemsList.add(bread.class);
+        allItemsList.add(club.class);
     }
 
     public static void printShopItems(){
