@@ -1,7 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.*;
 
 public class gui {
@@ -17,7 +16,7 @@ public class gui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 800);
         frame.setResizable(false);
-        frame.setLocationRelativeTo(null);;
+        frame.setLocationRelativeTo(null);
 
 
         //setup first JPanel

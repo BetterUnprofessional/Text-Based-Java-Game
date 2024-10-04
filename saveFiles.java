@@ -1,8 +1,10 @@
+import items.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 import playerFiles.*;
-import items.*;
+import world.shopitems;
 
 public class saveFiles {
     File saveFile = new File("saveFile.txt");
@@ -63,5 +65,55 @@ public class saveFiles {
         catch(IOException e){
             System.out.println("fasldfkj");
         }
+    }
+    private static void goToNextReadableText(Scanner reader){
+        reader.nextLine();
+        reader.next();
+    }
+    public static player readPlayerSave(File file){
+        int chealth, maxhealth, str, ag, inte, xptlu, xp;
+            String nameS, invListString;
+            player p1;
+            try{
+            Scanner myReader = new Scanner(file);
+            nameS = myReader.nextLine();
+            myReader.next();
+            chealth = myReader.nextInt();
+            saveFiles.goToNextReadableText(myReader);
+            maxhealth = myReader.nextInt();
+            saveFiles.goToNextReadableText(myReader);
+            str = myReader.nextInt();
+            saveFiles.goToNextReadableText(myReader);
+            ag = myReader.nextInt();
+            saveFiles.goToNextReadableText(myReader);
+            inte = myReader.nextInt();
+            saveFiles.goToNextReadableText(myReader);
+            xptlu = myReader.nextInt();
+            saveFiles.goToNextReadableText(myReader);
+            xp = myReader.nextInt();
+            saveFiles.goToNextReadableText(myReader);
+            invListString = myReader.nextLine();
+            p1 = new player(nameS);
+            p1.allocateSkillPoints(str,ag,inte);
+            player.setMaxHealth(maxhealth);
+            player.setHealth(chealth);
+            player.setXP(xp);
+            player.setXpToLevelUp(xptlu);
+            
+            for (Class<? extends item> e : shopitems.allItemsList) {
+                //if(e.getName().equals())
+                
+            }
+
+
+
+            myReader.close();
+            return p1;
+            }
+            catch(IOException e){
+                System.out.println("Uh oh");
+                p1 = new player("Empty Player");
+                return p1;
+            }
     }
 }

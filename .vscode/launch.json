@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "runTime",
+            "request": "launch",
+            "mainClass": "runTime",
+            "projectName": "Text-Based-Java-Game_d89d1ade"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

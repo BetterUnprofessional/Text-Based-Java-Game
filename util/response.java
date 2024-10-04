@@ -40,6 +40,13 @@ public class response{
         }
         else return false;
     }
+    public static boolean Save(String response){
+        response = response.toLowerCase();
+        if(response.contains("Save")  || response.contains("save")){
+            return true;
+        }
+        else return false;
+    }
     public boolean Dungeon(String response){
         response = response.toLowerCase();
         if(response.contains("dungeon")  || response.contains("Dungeon")){
