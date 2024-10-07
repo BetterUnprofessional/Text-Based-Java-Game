@@ -83,6 +83,8 @@ public class runTime
             player.setXP(xp);
             player.setXpToLevelUp(xptlu);
 
+
+            //////...... MUST BE IMPLIMENTED OTHERWISE BAD AND SAD AND NO GOOD
             for (Class<? extends item> e : shopitems.allItemsList) {
                 if(e.getName().equals())
                 
