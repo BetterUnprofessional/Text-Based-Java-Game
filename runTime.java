@@ -1,11 +1,9 @@
 
-import java.io.IOException;
 import java.util.Scanner;
 import monsters.*;
 import playerFiles.*;
 import util.response;
 import world.*;
-import items.*;
 
 
 public class runTime
@@ -49,55 +47,10 @@ public class runTime
             }
         }
         else{//WERE READING FILES NOW????
-            int chealth, maxhealth, str, ag, inte, xptlu, xp;
-            String nameS, invListString;
-            try{
-            Scanner myReader = new Scanner(saves.getFile());
-            nameS = myReader.nextLine();
-            myReader.next();
-            chealth = myReader.nextInt();
-            myReader.nextLine();
-            myReader.next();
-            maxhealth = myReader.nextInt();
-            myReader.nextLine();
-            myReader.next();
-            str = myReader.nextInt();
-            myReader.nextLine();
-            myReader.next();
-            ag = myReader.nextInt();
-            myReader.nextLine();
-            myReader.next();
-            inte = myReader.nextInt();
-            myReader.nextLine();
-            myReader.next();
-            xptlu = myReader.nextInt();
-            myReader.nextLine();
-            myReader.next();
-            xp = myReader.nextInt();
-            myReader.nextLine();
-            invListString = myReader.nextLine();
-            p1 = new player(nameS);
-            p1.allocateSkillPoints(str,ag,inte);
-            player.setMaxHealth(maxhealth);
-            player.setHealth(chealth);
-            player.setXP(xp);
-            player.setXpToLevelUp(xptlu);
 
+            p1 = saveFiles.readPlayerSave(saves.getFile());
+            
 
-            //////...... MUST BE IMPLIMENTED OTHERWISE BAD AND SAD AND NO GOOD
-            for (Class<? extends item> e : shopitems.allItemsList) {
-                if(e.getName().equals())
-                
-            }
-
-
-
-            myReader.close();
-            }
-            catch(IOException e){
-                System.out.println("Uh oh");
-                p1 = new player("Empty Player");
-            }
         }
 
        

@@ -1,10 +1,10 @@
 package world;
 
+import items.*;
 import java.util.Scanner;
 import monsters.*;
 import playerFiles.*;
 import util.*;
-import items.*;
 
 public class world { 
     response resp = new response();
@@ -26,7 +26,7 @@ public class world {
         Scanner input = new Scanner(System.in);
         if(stageNum % 5 == 0){
             System.out.println("You have some options of what to do: \n");
-            System.out.println("Shop \nDungeon \nItems \nQuit \n");
+            System.out.println("Shop \nDungeon \nItems \nQuit \nSave \n");
             String Ans = input.nextLine();
             if (response.quit(Ans)){System.exit(0);}
 
@@ -39,6 +39,9 @@ public class world {
             }
             if(response.Items(Ans)){
                 itemMenu();
+            }
+            if(response.Save(Ans)){
+                //// SAVE
             }
         }
         else{

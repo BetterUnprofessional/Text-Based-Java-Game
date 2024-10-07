@@ -1,0 +1,10 @@
+Player-Name: trekker
+Player-Current-Health: 32
+Player-Maximum-Health: 32
+Player-Strength: 9
+Player-Agility: 1
+Player-Intelligence: 0
+Player-XP-to-Level-Up: 100
+Player-XP: 0
+Player-Inventory: 
+World-StageNum: 0World-AreaNum: 0
