@@ -47,7 +47,7 @@ public class shopitems {
         int index = 1;
         for(item e:itemsInShop){
             
-            System.out.print(index + ": " + e.getName());
+            System.out.print(index + ": " + e.getItemName());
             System.out.println("   | costs " + e.getPrice() + " gold");
             index++;
         }

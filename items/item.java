@@ -10,7 +10,7 @@ public abstract class item {
     public void setName(String name){
         this.name = name;
     }
-    public String getName(){
+    public String getItemName(){
         return name;
     }
     public int getPrice(){

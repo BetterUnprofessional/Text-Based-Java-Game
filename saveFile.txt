@@ -1,10 +1,11 @@
-Player-Name: trekker
-Player-Current-Health: 32
-Player-Maximum-Health: 32
+Player-Name: Player-Name: Player-Name: Player-Name: Player-Name: Player-Name: Player-Name: Player-Name: Player-Name: Player-Name: Player-Name: debug
+Player-Current-Health: 68
+Player-Maximum-Health: 68
 Player-Strength: 9
 Player-Agility: 1
 Player-Intelligence: 0
 Player-XP-to-Level-Up: 100
 Player-XP: 0
-Player-Inventory: 
-World-StageNum: 0World-AreaNum: 0
+Player-Inventory: Chestplate Bread 
+World-StageNum: 0
+World-AreaNum: 0

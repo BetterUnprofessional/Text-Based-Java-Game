@@ -2,6 +2,7 @@ import items.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.Scanner;
 import playerFiles.*;
 import world.shopitems;
@@ -44,7 +45,7 @@ public class saveFiles {
             // get string version of inventory 
             String s = "";
             for(item e: player.inventory){
-                s += e.getName() + " ";
+                s += e.getItemName() + " ";
             }
             
             fWriter.write("Player-Name: " + player.getName() + "\n");
@@ -56,7 +57,7 @@ public class saveFiles {
             fWriter.write("Player-XP-to-Level-Up: " + player.getXpToLevelUp() + "\n");
             fWriter.write("Player-XP: " + player.getXP() + "\n");
             fWriter.write("Player-Inventory: " + s + "\n");
-            fWriter.write("World-StageNum: " + StageNum);
+            fWriter.write("World-StageNum: " + StageNum + "\n");
             fWriter.write("World-AreaNum: " + AreaNum);
             fWriter.close();
             
@@ -99,10 +100,19 @@ public class saveFiles {
             player.setHealth(chealth);
             player.setXP(xp);
             player.setXpToLevelUp(xptlu);
-            
-            for (Class<? extends item> e : shopitems.allItemsList) {
-                //if(e.getName().equals())
-                
+
+            invListString = invListString.substring(1);
+            while (!invListString.equals("")) {
+                for (Class<? extends item> e : shopitems.allItemsList) {
+                    int indexOfFirstSpace = invListString.indexOf(" ");
+                    if(indexOfFirstSpace != -1){
+                        if(getItemToAddToInv(e).getItemName().equals(invListString.substring(0,indexOfFirstSpace))){
+                            player.addItemToPlayer(getItemToAddToInv(e));
+                            invListString = invListString.substring(indexOfFirstSpace+1);
+
+                        }
+                    }
+                }
             }
 
 
@@ -115,5 +125,17 @@ public class saveFiles {
                 p1 = new player("Empty Player");
                 return p1;
             }
+    }
+    public static item getItemToAddToInv(Class<? extends item> e){
+
+        try{
+        Constructor<? extends item> ctor = e.getDeclaredConstructor();
+        item a = ctor.newInstance();
+        
+        return a;
+        }
+        catch(Exception exception){
+            return new bread();
+        }
     }
 }

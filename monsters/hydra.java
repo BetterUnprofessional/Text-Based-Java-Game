@@ -12,7 +12,7 @@ public class hydra extends boss {
     }
     public void attackEffects(int damageDoneToPlayer){
         for(item e : player.equipedItems){
-            String s = e.getName();
+            String s = e.getItemName();
             if(s.equals("Sword") || s.equals("Dagger")){
                 System.out.println("You chop off a head but it grows 2 more");
                 setHealth(getHealth()*2);
